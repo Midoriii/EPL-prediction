@@ -26,6 +26,14 @@ for matches in all_seasons_matches:
 teams_per_season = []
 for matches in all_seasons_matches:
     teams_per_season.append(matches.home_team_name.unique())
-
+    
+#Simple check
 for teams in teams_per_season:
     print(teams)
+
+#Sort matches by datetime so we can generate GameWeeks
+for matches in all_seasons_matches:
+    #Convert datetime string to pandas datetime
+    matches['date_string'] = pd.to_datetime(matches['date_string'], infer_datetime_format=True)
+    matches = matches.sort_values(by='date_string',ascending=True)
+    print(matches)
