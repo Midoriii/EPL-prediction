@@ -5,6 +5,7 @@ import zipfile
 import glob
 import json
 import os
+import sys
 
 #Load json data and extract teams per season
 def load_data():
@@ -13,6 +14,11 @@ def load_data():
     match_stats1617 = json.load(open('data/season16-17/season_match_stats.json','r'))
     match_stats1718 = json.load(open('data/season17-18/season_match_stats.json','r'))
 
+    season_stats1415 = json.load(open('data/season14-15/season_stats.json','r', encoding="utf8"))
+    season_stats1516 = json.load(open('data/season15-16/season_stats.json','r', encoding="utf8"))
+    season_stats1617 = json.load(open('data/season16-17/season_stats.json','r', encoding="utf8"))
+    season_stats1718 = json.load(open('data/season17-18/season_stats.json','r', encoding="utf8"))
+
     #Load simple match stats from each season
     matches1415 = pd.DataFrame.from_dict(match_stats1415, orient='index')
     matches1516 = pd.DataFrame.from_dict(match_stats1516, orient='index')
@@ -20,6 +26,7 @@ def load_data():
     matches1718 = pd.DataFrame.from_dict(match_stats1718, orient='index')
 
     all_seasons_matches = [matches1415, matches1516, matches1617, matches1718]
+    all_seasons_stats = [season_stats1415, season_stats1516, season_stats1617, season_stats1718]
 
     #Get unique team names per season
     teams_per_season = []
@@ -30,7 +37,7 @@ def load_data():
     for teams in teams_per_season:
         print(teams)
 
-    return all_seasons_matches, teams_per_season
+    return all_seasons_matches, teams_per_season, all_seasons_stats
 
 
 #Sort matches by datetime so we can generate GameWeeks
@@ -47,6 +54,7 @@ def sort_matches_by_date(all_seasons_matches):
 
 
 #Transform sorted matches into gameweeks
+#Is actually completely useless as it turns out
 def make_gameweeks(matches, teams):
     #Helper index for seasons
     i = 0
@@ -88,8 +96,7 @@ def make_gameweeks(matches, teams):
 
 #Main fuction for now
 if __name__== "__main__":
-    all_matches_simple, teams_in_season = load_data()
+    all_matches_simple, teams_in_season, all_seasons_detailed = load_data()
     all_matches_simple = sort_matches_by_date(all_matches_simple)
     print(all_matches_simple)
-    gameweeks_simple = make_gameweeks(all_matches_simple, teams_in_season)
-    print(gameweeks_simple)
+    print(all_seasons_detailed)
