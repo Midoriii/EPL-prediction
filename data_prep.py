@@ -99,4 +99,13 @@ if __name__== "__main__":
     all_matches_simple, teams_in_season, all_seasons_detailed = load_data()
     all_matches_simple = sort_matches_by_date(all_matches_simple)
     print(all_matches_simple)
-    print(all_seasons_detailed)
+
+    #A Bunch of helper prints
+
+    #print(all_seasons_detailed)
+    #print(all_matches_simple[0]['index'])
+    #print(all_seasons_detailed[0]['829513']['13'])
+    #for id in all_matches_simple[0]['index']:
+        #print(id)
+
+    #Helper prints over
