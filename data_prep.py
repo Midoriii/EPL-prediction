@@ -28,26 +28,25 @@ def load_data():
     all_seasons_matches = [matches1415, matches1516, matches1617, matches1718]
     all_seasons_stats = [season_stats1415, season_stats1516, season_stats1617, season_stats1718]
 
-    #Get unique team names per season
+    #Get unique team names per season .. probably not needed
     teams_per_season = []
     for matches in all_seasons_matches:
         teams_per_season.append(matches.home_team_name.unique())
 
-    #Simple check
-    for teams in teams_per_season:
-        print(teams)
-
     return all_seasons_matches, teams_per_season, all_seasons_stats
 
 
-#Sort matches by datetime so we can generate GameWeeks
+#Sort matches by datetime, which will be needed when calculating aggregated stats about latest form,
+#as well as whole season form
 def sort_matches_by_date(all_seasons_matches):
     sorted_matches = []
     for matches in all_seasons_matches:
         #Convert datetime string to pandas datetime
         matches['date_string'] = pd.to_datetime(matches['date_string'], format='%d/%m/%Y %H:%M:%S')
         matches = matches.sort_values(by='date_string',ascending=True)
+        #Reset and rename original index .. needed for sorting to remain
         matches = matches.reset_index()
+        matches = matches.rename(columns={"index": "match_id"})
         sorted_matches.append(matches)
 
     return sorted_matches
@@ -94,18 +93,95 @@ def make_gameweeks(matches, teams):
     return gameweeks
 
 
+#Add detailed info about home and away teams
+#The final data containing aggregated stats will be built using these
+def make_detailed_matches(matches_simple, matches_detailed):
+    matches_combined = []
+    #For all seasons
+    for i in range(0,4):
+        #Empty dataframe to append to
+        season = pd.DataFrame()
+        #For every match in the season
+        for idx, row in matches_simple[i].iterrows():
+            #Empty dataframe for every match, which will be filled
+            single_match = pd.DataFrame(columns=["match_id","date_string","home_team_id","away_team_id",
+                                                 "half_time_score","full_time_score","home_team_rating",
+                                                 "home_accurate_pass", "home_total_pass", "home_blocked_scoring_att",
+                                                 "home_ontarget_scoring_att", "home_shot_off_target", "home_won_corners",
+                                                 "home_penalty_save", "home_total_tackle", "home_fk_foul_lost",
+                                                 "home_total_throws", "home_possession_percentage",
+                                                 "away_team_rating", "away_accurate_pass", "away_total_pass",
+                                                 "away_blocked_scoring_att", "away_ontarget_scoring_att",
+                                                 "away_shot_off_target", "away_won_corners", "away_penalty_save",
+                                                 "away_total_tackle", "away_fk_foul_lost",
+                                                 "away_total_throws", "away_possession_percentage"])
+            #Create blank row to fill data in
+            single_match.loc[0] = 0
+            #Columns we want from the simple match stats
+            simple_row_columns = ["match_id","date_string","home_team_id","away_team_id",
+                                  "half_time_score","full_time_score"]
+            #Columns we want from the detailed match stats
+            team_stats_columns = ["team_rating", "accurate_pass", "total_pass", "blocked_scoring_att",
+                                  "ontarget_scoring_att", "shot_off_target", "won_corners", "penalty_save",
+                                  "total_tackle", "fk_foul_lost", "total_throws", "possession_percentage"]
+
+            home_team = row['home_team_id']
+            away_team = row['away_team_id']
+
+            #Fill dataframe with desired values from simple stats
+            for key in simple_row_columns:
+                single_match.loc[0,key] = row[key]
+            #Fill dataframe with desired values for home team from detailed stats
+            for key in team_stats_columns:
+                #We need to check if key exists
+                if key in matches_detailed[i][row['match_id']][home_team]['team_details']:
+                    single_match.loc[0,"home_" + key] = matches_detailed[i][row['match_id']][home_team]['team_details'][key]
+                elif key in matches_detailed[i][row['match_id']][home_team]['aggregate_stats']:
+                    single_match.loc[0,"home_" + key] = matches_detailed[i][row['match_id']][home_team]['aggregate_stats'][key]
+                #If the key doesn't exist, just fill 0
+                else:
+                    single_match.loc[0,"home_" + key] = 0
+             #Fill dataframe with desired values for away team from detailed stats
+            for key in team_stats_columns:
+                if key in matches_detailed[i][row['match_id']][away_team]['team_details']:
+                    single_match.loc[0,"away_" + key] = matches_detailed[i][row['match_id']][away_team]['team_details'][key]
+                elif key in matches_detailed[i][row['match_id']][away_team]['aggregate_stats']:
+                    single_match.loc[0,"away_" + key] = matches_detailed[i][row['match_id']][away_team]['aggregate_stats'][key]
+                else:
+                    single_match.loc[0,"away_" + key] = 0
+
+            single_match.fillna(0)
+            #We want numbers as ints, not objects
+            for atrib in team_stats_columns:
+                if atrib not in ['possession_percentage', 'team_rating']:
+                    single_match['home_' + atrib] = single_match['home_' + atrib].astype(np.int64)
+                    single_match['away_' + atrib] = single_match['away_' + atrib].astype(np.int64)
+
+            single_match['home_possession_percentage'] = single_match['home_possession_percentage'].astype(np.float64)
+            single_match['away_possession_percentage'] = single_match['away_possession_percentage'].astype(np.float64)
+            single_match['home_team_rating'] = single_match['home_team_rating'].astype(np.float64)
+            single_match['away_team_rating'] = single_match['away_team_rating'].astype(np.float64)
+
+            single_match['date_string'] = pd.to_datetime(single_match['date_string'])
+
+            season = season.append(single_match)
+
+        matches_combined.append(season)
+
+    return matches_combined
+
+
 #Main fuction for now
 if __name__== "__main__":
-    all_matches_simple, teams_in_season, all_seasons_detailed = load_data()
+    all_matches_simple, teams_in_season, all_matches_detailed = load_data()
     all_matches_simple = sort_matches_by_date(all_matches_simple)
-    print(all_matches_simple)
+    all_matches_merged_sorted = make_detailed_matches(all_matches_simple, all_matches_detailed)
 
     #A Bunch of helper prints
-
-    #print(all_seasons_detailed)
-    #print(all_matches_simple[0]['index'])
-    #print(all_seasons_detailed[0]['829513']['13'])
-    #for id in all_matches_simple[0]['index']:
-        #print(id)
+    #print(all_matches_simple)
+    print(all_matches_merged_sorted)
+    #print(all_matches_detailed)
+    #print(all_matches_simple[0]['match_id'])
+    #print(all_matches_detailed[0]['829513']['13'])
 
     #Helper prints over
