@@ -171,15 +171,54 @@ def make_detailed_matches(matches_simple, matches_detailed):
     return matches_combined
 
 
+#Divide scores into goals for home and away sides and add the home team result - W/L/D
+def divide_score_and_add_result(matches_combined):
+    for i in range (0,4):
+        #Divide the scores
+        matches_combined[i] = divideScore(matches_combined[i], 'half_time_score','half_time_score_home',
+                                          'half_time_score_away')
+        matches_combined[i] = divideScore(matches_combined[i], 'full_time_score', 'full_time_score_home',
+                                          'full_time_score_away')
+        #Retype for comparison
+        matches_combined[i] = matches_combined[i].astype({'half_time_score_home': 'int8',
+                                                'half_time_score_away': 'int8',
+                                                'full_time_score_home': 'int8',
+                                                'full_time_score_away': 'int8'})
+        #Add W/D/L marking for home team result, we'll be predicting these
+        matches_combined[i].loc[matches_combined[i]['full_time_score_home'] == matches_combined[i]['full_time_score_away'],
+                                'result_home'] = 'D'
+        matches_combined[i].loc[matches_combined[i]['full_time_score_home'] < matches_combined[i]['full_time_score_away'],
+                                'result_home'] = 'L'
+        matches_combined[i].loc[matches_combined[i]['full_time_score_home'] > matches_combined[i]['full_time_score_away'],
+                                'result_home'] = 'W'
+    return matches_combined
+
+
+#Helper function to divide score and store it back into the dataframe
+def divideScore(df, scoreName, name1, name2):
+    df2 = df[scoreName].str.split(':',expand=True)
+    df2.rename(columns={0: name1, 1: name2}, inplace=True)
+    df2 = pd.concat([df, df2], axis=1)
+
+    return df2
+
+
 #Main fuction for now
 if __name__== "__main__":
     all_matches_simple, teams_in_season, all_matches_detailed = load_data()
     all_matches_simple = sort_matches_by_date(all_matches_simple)
     all_matches_merged_sorted = make_detailed_matches(all_matches_simple, all_matches_detailed)
+    all_matches_merged_sorted = divide_score_and_add_result(all_matches_merged_sorted)
+
+    #Save it all for future use
+    all_matches_merged_sorted[0].to_csv('data/season14-15/sorted_detailed_games_1415.csv', encoding='utf-8')
+    all_matches_merged_sorted[1].to_csv('data/season15-16/sorted_detailed_games_1516.csv', encoding='utf-8')
+    all_matches_merged_sorted[2].to_csv('data/season16-17/sorted_detailed_games_1617.csv', encoding='utf-8')
+    all_matches_merged_sorted[3].to_csv('data/season17-18/sorted_detailed_games_1718.csv', encoding='utf-8')
 
     #A Bunch of helper prints
     #print(all_matches_simple)
-    print(all_matches_merged_sorted)
+    #print(all_matches_merged_sorted)
     #print(all_matches_detailed)
     #print(all_matches_simple[0]['match_id'])
     #print(all_matches_detailed[0]['829513']['13'])
