@@ -33,7 +33,7 @@ def load_data():
     for matches in all_seasons_matches:
         teams_per_season.append(matches.home_team_name.unique())
 
-    return all_seasons_matches, teams_per_season, all_seasons_stats
+    return all_seasons_matches, all_seasons_stats
 
 
 #Sort matches by datetime, which will be needed when calculating aggregated stats about latest form,
@@ -205,12 +205,13 @@ def divideScore(df, scoreName, name1, name2):
 
 #Main fuction for now
 if __name__== "__main__":
-    all_matches_simple, teams_in_season, all_matches_detailed = load_data()
+    all_matches_simple, all_matches_detailed = load_data()
     all_matches_simple = sort_matches_by_date(all_matches_simple)
     all_matches_merged_sorted = make_detailed_matches(all_matches_simple, all_matches_detailed)
     all_matches_merged_sorted = divide_score_and_add_result(all_matches_merged_sorted)
 
     #Save it all for future use
+    # Bug: the indices get lost somewhere along the way and become 0 resulting in Unnamed col full of 0
     all_matches_merged_sorted[0].to_csv('data/season14-15/sorted_detailed_games_1415.csv', encoding='utf-8')
     all_matches_merged_sorted[1].to_csv('data/season15-16/sorted_detailed_games_1516.csv', encoding='utf-8')
     all_matches_merged_sorted[2].to_csv('data/season16-17/sorted_detailed_games_1617.csv', encoding='utf-8')
