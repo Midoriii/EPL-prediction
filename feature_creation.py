@@ -56,22 +56,25 @@ def create_features(data, team_ids):
         #We'll use the id of the match
         test_match = season.loc[season["match_id"] == 829587]
         #We'll get home team and away team ids
-        id_of_test_team = test_match['home_team_id'].values[0]
+        id_of_testH_team = test_match['home_team_id'].values[0]
+        id_of_testA_team = test_match['away_team_id'].values[0]
 
-        #And their matches so far
-        test_team_matches = season[(season['home_team_id'] == id_of_test_team) | (season['away_team_id'] == id_of_test_team)]
+        #Get all their matches so far + home / away
+        test_teamH_all_matches, test_teamH_home_matches, test_teamH_away_matches = get_team_matches(season, id_of_testH_team)
+        test_teamA_all_matches, test_teamA_home_matches, test_teamA_away_matches = get_team_matches(season, id_of_testA_team)
 
-        #Then their home & away matches
-        home_matches = test_team_matches[test_team_matches['home_team_id'] == id_of_test_team]
-
-
-
+        print(test_teamH_all_matches)
+        print(test_teamH_home_matches)
+        print(test_teamH_away_matches)
+        print(test_teamA_all_matches)
+        print(test_teamA_home_matches)
+        print(test_teamA_away_matches)
 
         #And use it together with the season data to perform 'normalization' by dividing it by seasonal mean so far
         #Firstly for the att and def strength
-        print(home_matches['full_time_score_home'].mean())
-        print(home_matches['full_time_score_home'].mean() / season['full_time_score_away'].mean())
-        
+        print(test_teamH_home_matches['full_time_score_home'].mean())
+        print(test_teamH_home_matches['full_time_score_home'].mean() / season['full_time_score_home'].mean())
+
         #Afterwards for every other column
 
         #If the teams played less than 5 matches, just store the seasonal means into last5 means too
@@ -107,6 +110,19 @@ def create_dataframe_of_features(season):
             season_dataframe[name] = ""
 
     return season_dataframe
+
+
+#Helper function to get all/home/away matches of a team
+def get_team_matches(season, team_id):
+    #All their matches so far
+    all_matches = season[(season['home_team_id'] == team_id) | (season['away_team_id'] == team_id)]
+
+    #Then their home & away matches
+    home_matches = all_matches[all_matches['home_team_id'] == team_id]
+    away_matches = all_matches[all_matches['away_team_id'] == team_id]
+
+    return all_matches, home_matches, away_matches
+
 
 
 #Main fuction for now
