@@ -45,50 +45,97 @@ def create_features(data, team_ids):
 
         #print(season_dataframe)
 
-        #
-        #Tady pribyde for loop pro kazdy match sezony
-        #
+        #For every match in the season
+        for idx, row in season.iterrows():
+            #Empty dataframe which will be filled with single match data and appended to season_dataframe
+            match_dataframe = create_dataframe_of_features(season)
+            match_dataframe.loc[0] = 0
+            match_dataframe.loc[0]['match_id'] = row['match_id']
+            match_dataframe.loc[0]['home_team_id'] = row['home_team_id']
+            match_dataframe.loc[0]['away_team_id'] = row['away_team_id']
+            match_dataframe.loc[0]['result_home'] = row['result_home']
 
-        #Get all the matched played before the one we're building features for
-        season = season[season['date_string'] < '2014-11-27 15:00:00']
+            #We'll use the id of the match
+            match_id = row['match_id']
+
+            #Get all the matches played before the one we're building features for
+            matches_before = season[season['date_string'] < row['date_string']]
+
+            #We'll get home team and away team ids
+            id_of_H_team = row['home_team_id']
+            id_of_A_team = row['away_team_id']
+
+            #Get all their matches so far + home / away
+            teamH_all_matches, teamH_home_matches, teamH_away_matches = get_team_matches(matches_before, id_of_H_team)
+            teamA_all_matches, teamA_home_matches, teamA_away_matches = get_team_matches(matches_before, id_of_A_team)
+
+            #We'll need to skip the first week since we have no prior data
+            if(len(teamA_all_matches) == 0 or len(teamH_all_matches) == 0):
+                #Skip the first matches of a season .. will probably be for the best
+                continue
+
+            #And use it together with the season data to perform 'normalization' by dividing it by seasonal mean so far
+            #Firstly for the att and def strength
+            match_dataframe.loc[0]['home_team_att_strength'] = teamH_home_matches['full_time_score_home'].mean() / matches_before['full_time_score_home'].mean()
+            match_dataframe.loc[0]['home_team_def_strength'] = teamH_home_matches['full_time_score_away'].mean() / matches_before['full_time_score_away'].mean()
+            match_dataframe.loc[0]['away_team_att_strength'] = teamA_away_matches['full_time_score_away'].mean() / matches_before['full_time_score_away'].mean()
+            match_dataframe.loc[0]['away_team_def_strength'] = teamA_away_matches['full_time_score_home'].mean() / matches_before['full_time_score_home'].mean()
+
+            #Get the column names
+            col_names_home = list(match_dataframe.columns[3:15].values)
+            col_names_away = list(match_dataframe.columns[15:28].values)
+            #Ugly but whatever
+            col_names_away.remove('result_home')
+
+            #Afterwards for every desired column compute the mean for the team during the whole season
+            for i in range(len(col_names_away)):
+                #Get the mean of a stat for the current home team
+                home_mean_home_matches = teamH_home_matches[col_names_home[i]].mean()
+                home_mean_away_matches = teamH_away_matches[col_names_away[i]].mean()
+                home_mean = (home_mean_away_matches + home_mean_home_matches) / 2.0
+                match_dataframe.loc[0][col_names_home[i]] = home_mean
+
+                #Get the mean of a stat for the current away team
+                away_mean_home_matches = teamA_home_matches[col_names_home[i]].mean()
+                away_mean_away_matches = teamA_away_matches[col_names_away[i]].mean()
+                away_mean = (away_mean_away_matches + away_mean_home_matches) / 2.0
+                match_dataframe.loc[0][col_names_away[i]] = away_mean
 
 
-        #We'll use the id of the match
-        test_match = season.loc[season["match_id"] == 829587]
-        #We'll get home team and away team ids
-        id_of_testH_team = test_match['home_team_id'].values[0]
-        id_of_testA_team = test_match['away_team_id'].values[0]
+            #If the teams played less than 5 matches, just store the seasonal means into last5 means too
+            if(len(teamA_all_matches) < 5):
+                #equals
+                print('eh')
+            else:
+                #compute
+                print('ho')
+            #Equally for the home team
+            if(len(teamH_all_matches) < 5):
+                #equals
+                print('eh')
+            else:
+                #compute
+                print('ho')
 
-        #Get all their matches so far + home / away
-        test_teamH_all_matches, test_teamH_home_matches, test_teamH_away_matches = get_team_matches(season, id_of_testH_team)
-        test_teamA_all_matches, test_teamA_home_matches, test_teamA_away_matches = get_team_matches(season, id_of_testA_team)
+            #We'll need the matches of all the teams to perform means over last 5 played
+            team_dict = dict()
+            for team in team_ids[0]:
+                games_of_a_team = season[(season['home_team_id'] == team) | (season['away_team_id'] == team)]
+                team_dict[team] = games_of_a_team
 
-        print(test_teamH_all_matches)
-        print(test_teamH_home_matches)
-        print(test_teamH_away_matches)
-        print(test_teamA_all_matches)
-        print(test_teamA_home_matches)
-        print(test_teamA_away_matches)
+            #print(team_dict)
 
-        #And use it together with the season data to perform 'normalization' by dividing it by seasonal mean so far
-        #Firstly for the att and def strength
-        print(test_teamH_home_matches['full_time_score_home'].mean())
-        print(test_teamH_home_matches['full_time_score_home'].mean() / season['full_time_score_home'].mean())
+            print(match_dataframe)
 
-        #Afterwards for every other column
+            #Fill NaNs and 0 in the beginning as 1, which should be average
+            match_dataframe.fillna(value=1, inplace=True)
+            match_dataframe.replace(0, 1, inplace=True)
 
-        #If the teams played less than 5 matches, just store the seasonal means into last5 means too
-
-        #We'll need the matches of all the teams to perform means over last 5 played
-        team_dict = dict()
-        for team in team_ids[0]:
-            games_of_a_team = season[(season['home_team_id'] == team) | (season['away_team_id'] == team)]
-            team_dict[team] = games_of_a_team
-
-        #print(team_dict)
+            #Append constructed match to the season dataframe
+            season_dataframe = season_dataframe.append(match_dataframe)
 
         #lastly append the computed seasonal data
-        data_with_features = data_with_features.append(season_dataframe)
+        data_with_features.append(season_dataframe)
 
     return data_with_features
 
@@ -130,6 +177,11 @@ if __name__== "__main__":
     data, team_ids = load_data()
 
     data_with_features = create_features(data, team_ids)
+
+    data_with_features[0].to_csv('data/season14-15/data_with_features_1415.csv', encoding='utf-8')
+    data_with_features[1].to_csv('data/season15-16/data_with_features_1516.csv', encoding='utf-8')
+    data_with_features[2].to_csv('data/season16-17/data_with_features_1617.csv', encoding='utf-8')
+    data_with_features[3].to_csv('data/season17-18/data_with_features_1718.csv', encoding='utf-8')
 
     #Helper prints
     #print(data)
