@@ -74,12 +74,16 @@ def create_features(data, team_ids):
                 #Skip the first matches of a season .. will probably be for the best
                 continue
 
-            #And use it together with the season data to perform 'normalization' by dividing it by seasonal mean so far
-            #Firstly for the att and def strength
-            match_dataframe.loc[0]['home_team_att_strength'] = teamH_home_matches['full_time_score_home'].mean() / matches_before['full_time_score_home'].mean()
-            match_dataframe.loc[0]['home_team_def_strength'] = teamH_home_matches['full_time_score_away'].mean() / matches_before['full_time_score_away'].mean()
-            match_dataframe.loc[0]['away_team_att_strength'] = teamA_away_matches['full_time_score_away'].mean() / matches_before['full_time_score_away'].mean()
-            match_dataframe.loc[0]['away_team_def_strength'] = teamA_away_matches['full_time_score_home'].mean() / matches_before['full_time_score_home'].mean()
+            #We define relative home & away strengths as team means divided by seasonal means
+            #First few weeks can cotnain NaNs so we replace those by average represented as 1.0
+            home_att_str = teamH_home_matches['full_time_score_home'].mean() / matches_before['full_time_score_home'].mean()
+            match_dataframe.loc[0]['home_team_att_strength'] = (1.0 if np.isnan(home_att_str) else home_att_str)
+            home_def_str = teamH_home_matches['full_time_score_away'].mean() / matches_before['full_time_score_away'].mean()
+            match_dataframe.loc[0]['home_team_def_strength'] = (1.0 if np.isnan(home_def_str) else home_def_str)
+            away_att_str = teamA_away_matches['full_time_score_away'].mean() / matches_before['full_time_score_away'].mean()
+            match_dataframe.loc[0]['away_team_att_strength'] = (1.0 if np.isnan(away_att_str) else away_att_str)
+            away_def_str = teamA_away_matches['full_time_score_home'].mean() / matches_before['full_time_score_home'].mean()
+            match_dataframe.loc[0]['away_team_def_strength'] = (1.0 if np.isnan(away_def_str) else away_def_str)
 
             #Get the column names
             col_names_home = list(match_dataframe.columns[3:15].values)
