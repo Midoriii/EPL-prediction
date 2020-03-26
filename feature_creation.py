@@ -92,12 +92,25 @@ def create_features(data, team_ids):
                 #Get the mean of a stat for the current home team
                 home_mean_home_matches = teamH_home_matches[col_names_home[i]].mean()
                 home_mean_away_matches = teamH_away_matches[col_names_away[i]].mean()
+                #This here is to 'fix' the second gameweek mainly, where away or home matches may be missing
+                #and outputting NaN
+                if np.isnan(home_mean_away_matches):
+                    home_mean_away_matches = home_mean_home_matches
+                if np.isnan(home_mean_home_matches):
+                    home_mean_home_matches = home_mean_away_matches
+
                 home_mean = (home_mean_away_matches + home_mean_home_matches) / 2.0
                 match_dataframe.loc[0][col_names_home[i]] = home_mean
 
                 #Get the mean of a stat for the current away team
                 away_mean_home_matches = teamA_home_matches[col_names_home[i]].mean()
                 away_mean_away_matches = teamA_away_matches[col_names_away[i]].mean()
+
+                if np.isnan(away_mean_away_matches):
+                    away_mean_away_matches = away_mean_home_matches
+                if np.isnan(away_mean_home_matches):
+                    away_mean_home_matches = away_mean_away_matches
+
                 away_mean = (away_mean_away_matches + away_mean_home_matches) / 2.0
                 match_dataframe.loc[0][col_names_away[i]] = away_mean
 
@@ -127,9 +140,8 @@ def create_features(data, team_ids):
 
             print(match_dataframe)
 
-            #Fill NaNs and 0 in the beginning as 1, which should be average
-            match_dataframe.fillna(value=1, inplace=True)
-            match_dataframe.replace(0, 1, inplace=True)
+            #Fill NaNs if some appear
+            match_dataframe.fillna(value=-1, inplace=True)
 
             #Append constructed match to the season dataframe
             season_dataframe = season_dataframe.append(match_dataframe)
@@ -178,10 +190,10 @@ if __name__== "__main__":
 
     data_with_features = create_features(data, team_ids)
 
-    data_with_features[0].to_csv('data/season14-15/data_with_features_1415.csv', encoding='utf-8')
-    data_with_features[1].to_csv('data/season15-16/data_with_features_1516.csv', encoding='utf-8')
-    data_with_features[2].to_csv('data/season16-17/data_with_features_1617.csv', encoding='utf-8')
-    data_with_features[3].to_csv('data/season17-18/data_with_features_1718.csv', encoding='utf-8')
+    data_with_features[0].to_csv('data/season14-15/data_with_features_1415.csv', encoding='utf-8', index=False)
+    data_with_features[1].to_csv('data/season15-16/data_with_features_1516.csv', encoding='utf-8', index=False)
+    data_with_features[2].to_csv('data/season16-17/data_with_features_1617.csv', encoding='utf-8', index=False)
+    data_with_features[3].to_csv('data/season17-18/data_with_features_1718.csv', encoding='utf-8', index=False)
 
     #Helper prints
     #print(data)
