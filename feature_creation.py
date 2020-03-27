@@ -55,8 +55,11 @@ def create_features(data, team_ids):
             match_dataframe.loc[0]['away_team_id'] = row['away_team_id']
             match_dataframe.loc[0]['result_home'] = row['result_home']
 
-            #We'll use the id of the match
-            match_id = row['match_id']
+            #Get the column names
+            col_names_home = list(match_dataframe.columns[3:15].values)
+            col_names_away = list(match_dataframe.columns[15:28].values)
+            #Isn't needed there
+            col_names_away.remove('result_home')
 
             #Get all the matches played before the one we're building features for
             matches_before = season[season['date_string'] < row['date_string']]
@@ -85,39 +88,9 @@ def create_features(data, team_ids):
             away_def_str = teamA_away_matches['full_time_score_home'].mean() / matches_before['full_time_score_home'].mean()
             match_dataframe.loc[0]['away_team_def_strength'] = (1.0 if np.isnan(away_def_str) else away_def_str)
 
-            #Get the column names
-            col_names_home = list(match_dataframe.columns[3:15].values)
-            col_names_away = list(match_dataframe.columns[15:28].values)
-            #Ugly but whatever
-            col_names_away.remove('result_home')
-
-            #Afterwards for every desired column compute the mean for the team during the whole season
-            for i in range(len(col_names_away)):
-                #Get the mean of a stat for the current home team
-                home_mean_home_matches = teamH_home_matches[col_names_home[i]].mean()
-                home_mean_away_matches = teamH_away_matches[col_names_away[i]].mean()
-                #This here is to 'fix' the second gameweek mainly, where away or home matches may be missing
-                #and outputting NaN
-                if np.isnan(home_mean_away_matches):
-                    home_mean_away_matches = home_mean_home_matches
-                if np.isnan(home_mean_home_matches):
-                    home_mean_home_matches = home_mean_away_matches
-
-                home_mean = (home_mean_away_matches + home_mean_home_matches) / 2.0
-                match_dataframe.loc[0][col_names_home[i]] = home_mean
-
-                #Get the mean of a stat for the current away team
-                away_mean_home_matches = teamA_home_matches[col_names_home[i]].mean()
-                away_mean_away_matches = teamA_away_matches[col_names_away[i]].mean()
-
-                if np.isnan(away_mean_away_matches):
-                    away_mean_away_matches = away_mean_home_matches
-                if np.isnan(away_mean_home_matches):
-                    away_mean_home_matches = away_mean_away_matches
-
-                away_mean = (away_mean_away_matches + away_mean_home_matches) / 2.0
-                match_dataframe.loc[0][col_names_away[i]] = away_mean
-
+            #Compute the features for the Home team and Away team afterwards
+            compute_features(col_names_away, col_names_home, teamH_home_matches, teamH_away_matches, True, match_dataframe)
+            compute_features(col_names_away, col_names_home, teamA_home_matches, teamA_away_matches, False, match_dataframe)
 
             #If the teams played less than 5 matches, just store the seasonal means into last5 means too
             if(len(teamA_all_matches) < 5):
@@ -191,6 +164,27 @@ def get_team_matches(season, team_id):
     away_matches = all_matches[all_matches['away_team_id'] == team_id]
 
     return all_matches, home_matches, away_matches
+
+
+#For every desired column compute the mean for the team during the whole season
+def compute_features(col_names_away, col_names_home, home_matches, away_matches, home_team, match_dataframe):
+    for i in range(len(col_names_home)):
+        #Get the mean of a stat for the current home team
+        mean_home_matches = home_matches[col_names_home[i]].mean()
+        mean_away_matches = away_matches[col_names_away[i]].mean()
+        #This here is to 'fix' the second gameweek mainly, where away or home matches may be missing
+        #and outputting NaN
+        if np.isnan(mean_away_matches):
+            mean_away_matches = mean_home_matches
+        if np.isnan(mean_home_matches):
+            mean_home_matches = mean_away_matches
+
+        mean = (mean_away_matches + mean_home_matches) / 2.0
+        #Are we computing this for the home or away team ?
+        if home_team:
+            match_dataframe.loc[0][col_names_home[i]] = mean
+        else:
+            match_dataframe.loc[0][col_names_away[i]] = mean
 
 
 
