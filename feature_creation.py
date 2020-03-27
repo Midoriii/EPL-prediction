@@ -75,7 +75,7 @@ def create_features(data, team_ids):
                 continue
 
             #We define relative home & away strengths as team means divided by seasonal means
-            #First few weeks can cotnain NaNs so we replace those by average represented as 1.0
+            #First few weeks can contain NaNs so we replace those by average represented as 1.0
             home_att_str = teamH_home_matches['full_time_score_home'].mean() / matches_before['full_time_score_home'].mean()
             match_dataframe.loc[0]['home_team_att_strength'] = (1.0 if np.isnan(home_att_str) else home_att_str)
             home_def_str = teamH_home_matches['full_time_score_away'].mean() / matches_before['full_time_score_away'].mean()
@@ -121,15 +121,21 @@ def create_features(data, team_ids):
 
             #If the teams played less than 5 matches, just store the seasonal means into last5 means too
             if(len(teamA_all_matches) < 5):
-                #equals
-                print('eh')
+                for col in col_names_away:
+                    match_dataframe.loc[0][col + "_last5"] = match_dataframe[col].values[0]
+                match_dataframe.loc[0]["away_team_att_strength_last5"] = match_dataframe["away_team_att_strength"].values[0]
+                match_dataframe.loc[0]["away_team_def_strength_last5"] = match_dataframe["away_team_def_strength"].values[0]
+
             else:
                 #compute
                 print('ho')
+
             #Equally for the home team
             if(len(teamH_all_matches) < 5):
-                #equals
-                print('eh')
+                for col in col_names_home:
+                    match_dataframe.loc[0][col + "_last5"] = match_dataframe[col].values[0]
+                match_dataframe.loc[0]["home_team_att_strength_last5"] = match_dataframe["home_team_att_strength"].values[0]
+                match_dataframe.loc[0]["home_team_def_strength_last5"] = match_dataframe["home_team_def_strength"].values[0]
             else:
                 #compute
                 print('ho')
