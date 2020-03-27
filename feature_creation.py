@@ -101,7 +101,18 @@ def create_features(data, team_ids):
 
             else:
                 #compute
-                print('ho')
+                #Get combined last 5 matches
+                last5_matches_of_teams = get_last5_team_matches(matches_before, team_ids)
+                #Get matches of the current away team
+                teamA_last5_all_matches, teamA_last5_home_matches, teamA_last5_away_matches = get_team_matches(last5_matches_of_teams, id_of_A_team)
+                #Compute the features of the last 5 matches
+                compute_features(col_names_away, col_names_home, teamA_last5_home_matches, teamA_last5_away_matches, False, match_dataframe, "_last5")
+                #Need to do relative strengths too
+                away_att_str = teamA_last5_away_matches['full_time_score_away'].mean() / last5_matches_of_teams['full_time_score_away'].mean()
+                match_dataframe.loc[0]['away_team_att_strength_last5'] = (1.0 if np.isnan(away_att_str) else away_att_str)
+                away_def_str = teamA_last5_away_matches['full_time_score_home'].mean() / last5_matches_of_teams['full_time_score_home'].mean()
+                match_dataframe.loc[0]['away_team_def_strength_last5'] = (1.0 if np.isnan(away_def_str) else away_def_str)
+
 
             #Equally for the home team
             if(len(teamH_all_matches) < 5):
@@ -111,17 +122,17 @@ def create_features(data, team_ids):
                 match_dataframe.loc[0]["home_team_def_strength_last5"] = match_dataframe["home_team_def_strength"].values[0]
             else:
                 #compute
-                print('ho')
+                last5_matches_of_teams = get_last5_team_matches(matches_before, team_ids)
+                teamH_last5_all_matches, teamH_last5_home_matches, teamH_last5_away_matches = get_team_matches(last5_matches_of_teams, id_of_H_team)
+                compute_features(col_names_away, col_names_home, teamH_last5_home_matches, teamH_last5_away_matches, True, match_dataframe, "_last5")
 
-            #We'll need the matches of all the teams to perform means over last 5 played
-            team_dict = dict()
-            for team in team_ids[0]:
-                games_of_a_team = season[(season['home_team_id'] == team) | (season['away_team_id'] == team)]
-                team_dict[team] = games_of_a_team
+                home_att_str = teamH_last5_home_matches['full_time_score_home'].mean() / last5_matches_of_teams['full_time_score_home'].mean()
+                match_dataframe.loc[0]['home_team_att_strength_last5'] = (1.0 if np.isnan(home_att_str) else home_att_str)
+                home_def_str = teamH_last5_home_matches['full_time_score_away'].mean() / last5_matches_of_teams['full_time_score_away'].mean()
+                match_dataframe.loc[0]['home_team_def_strength_last5'] = (1.0 if np.isnan(home_def_str) else home_def_str)
 
-            #print(team_dict)
 
-            print(match_dataframe)
+            #print(match_dataframe)
 
             #Fill NaNs if some appear
             match_dataframe.fillna(value=-1, inplace=True)
@@ -167,7 +178,8 @@ def get_team_matches(season, team_id):
 
 
 #For every desired column compute the mean for the team during the whole season
-def compute_features(col_names_away, col_names_home, home_matches, away_matches, home_team, match_dataframe):
+#Suffix is there to make it reusable for last 5 matches
+def compute_features(col_names_away, col_names_home, home_matches, away_matches, home_team, match_dataframe, suffix=""):
     for i in range(len(col_names_home)):
         #Get the mean of a stat for the current home team
         mean_home_matches = home_matches[col_names_home[i]].mean()
@@ -182,10 +194,37 @@ def compute_features(col_names_away, col_names_home, home_matches, away_matches,
         mean = (mean_away_matches + mean_home_matches) / 2.0
         #Are we computing this for the home or away team ?
         if home_team:
-            match_dataframe.loc[0][col_names_home[i]] = mean
+            match_dataframe.loc[0][col_names_home[i]+suffix] = mean
         else:
-            match_dataframe.loc[0][col_names_away[i]] = mean
+            match_dataframe.loc[0][col_names_away[i]+suffix] = mean
 
+
+#Get last 5 matches of all teams, used in computing features over last 5 games to emphasize recent form
+def get_last5_team_matches(matches_before, team_ids):
+    #We'll need the matches of all the teams to perform means over last 5 played
+    #Empty dataframe to append to
+    last5_games_of_all_teams = pd.DataFrame()
+    team_dict = dict()
+    #Get all games for each team and store in a dictionary where key = team id
+    for team in team_ids[0]:
+        games_of_a_team = matches_before[(matches_before['home_team_id'] == team) | (matches_before['away_team_id'] == team)]
+        team_dict[team] = games_of_a_team
+
+    for key in team_dict:
+        #If a team has played less than 5 matches, append them all .. might actually not even be needed here
+        if len(team_dict[key].index) < 5:
+            last5_games_of_all_teams = last5_games_of_all_teams.append(team_dict[key])
+        #Otherwise append exactly last 5
+        else:
+            last5_games_of_all_teams = last5_games_of_all_teams.append(team_dict[key].tail(5))
+
+    #Drop duplicated matches
+    last5_games_of_all_teams.drop_duplicates(subset='match_id', inplace=True)
+
+    #print(last5_games_of_all_teams)
+
+    #Return dataframe containing last ~5 matches of each team
+    return last5_games_of_all_teams
 
 
 #Main fuction for now
