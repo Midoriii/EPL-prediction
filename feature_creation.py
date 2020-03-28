@@ -53,7 +53,13 @@ def create_features(data, team_ids):
             match_dataframe.loc[0]['match_id'] = row['match_id']
             match_dataframe.loc[0]['home_team_id'] = row['home_team_id']
             match_dataframe.loc[0]['away_team_id'] = row['away_team_id']
-            match_dataframe.loc[0]['result_home'] = row['result_home']
+            #Transform results into number
+            if row['result_home'] == 'W':
+                match_dataframe.loc[0]['result_home'] = 1
+            elif row['result_home'] == 'L':
+                match_dataframe.loc[0]['result_home'] = -1
+            else:
+                match_dataframe.loc[0]['result_home'] = 0
 
             #Get the column names
             col_names_home = list(match_dataframe.columns[3:15].values)
