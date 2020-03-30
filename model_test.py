@@ -17,6 +17,12 @@ if __name__== "__main__":
     data = data.append(pd.read_csv('data/season16-17/data_with_features_1617.csv', encoding='utf-8', index_col='match_id'))
     data = data.append(pd.read_csv('data/season17-18/data_with_features_1718.csv', encoding='utf-8', index_col='match_id'))
 
+    data_normalized = pd.DataFrame()
+    data_normalized = data_normalized.append(pd.read_csv('data/season14-15/data_with_features_1415_norm.csv', encoding='utf-8', index_col='match_id'))
+    data_normalized = data_normalized.append(pd.read_csv('data/season15-16/data_with_features_1516_norm.csv', encoding='utf-8', index_col='match_id'))
+    data_normalized = data_normalized.append(pd.read_csv('data/season16-17/data_with_features_1617_norm.csv', encoding='utf-8', index_col='match_id'))
+    data_normalized = data_normalized.append(pd.read_csv('data/season17-18/data_with_features_1718_norm.csv', encoding='utf-8', index_col='match_id'))
+
     #print(data)
 
     #Get the column names of features, we don't want the result here
@@ -28,7 +34,9 @@ if __name__== "__main__":
     #print(col_names_features)
 
     # Split dataset in training and test datasets
-    X_train, X_test = train_test_split(data, test_size=0.2, random_state=int(time.time()))
+    X_train, X_test = train_test_split(data, test_size=0.15, random_state=int(time.time()))
+    # Split normalized dataset in training and test datasets
+    Y_train, Y_test = train_test_split(data_normalized, test_size=0.15, random_state=int(time.time()))
 
     #Create nodel
     gnb = GaussianNB()
@@ -48,6 +56,20 @@ if __name__== "__main__":
           100*(1-(X_test[col_names_outcome] != y_pred).sum()/X_test.shape[0])
     ))
 
+    # On normalized data
+    gnb.fit(
+        Y_train[col_names_features].values,
+        Y_train[col_names_outcome]
+    )
+    y_pred = gnb.predict(Y_test[col_names_features])
+
+    print("Gaussian Normalized: Number of mistakes made out of a total {} predictions : {}, performance {:05.2f}%"
+      .format(
+          Y_test.shape[0],
+          (Y_test[col_names_outcome] != y_pred).sum(),
+          100*(1-(Y_test[col_names_outcome] != y_pred).sum()/Y_test.shape[0])
+    ))
+
     mnb.fit(
         X_train[col_names_features].values,
         X_train[col_names_outcome]
@@ -59,4 +81,17 @@ if __name__== "__main__":
           X_test.shape[0],
           (X_test[col_names_outcome] != y_pred).sum(),
           100*(1-(X_test[col_names_outcome] != y_pred).sum()/X_test.shape[0])
+    ))
+
+    mnb.fit(
+        Y_train[col_names_features].values,
+        Y_train[col_names_outcome]
+    )
+    y_pred = mnb.predict(Y_test[col_names_features])
+
+    print("Multinomial Normalized: Number of mistakes made out of a total {} predictions : {}, performance {:05.2f}%"
+      .format(
+          Y_test.shape[0],
+          (Y_test[col_names_outcome] != y_pred).sum(),
+          100*(1-(Y_test[col_names_outcome] != y_pred).sum()/Y_test.shape[0])
     ))
