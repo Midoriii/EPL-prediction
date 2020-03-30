@@ -233,6 +233,20 @@ def get_last5_team_matches(matches_before, team_ids):
     return last5_games_of_all_teams
 
 
+#Normalize data to see if it improves performance
+def normalize_matchframe(df):
+    result = df.copy()
+    #Get the feature names
+    features = df.columns
+    for feature in features:
+        #We don't wanna normalize these
+        if feature not in ['match_id', 'result_home', 'home_team_id', 'away_team_id']:
+            max_value = df[feature].max()
+            min_value = df[feature].min()
+            result[feature] = (df[feature] - min_value) / (max_value - min_value)
+    return result
+
+
 #Main fuction for now
 if __name__== "__main__":
     data, team_ids = load_data()
@@ -243,6 +257,12 @@ if __name__== "__main__":
     data_with_features[1].to_csv('data/season15-16/data_with_features_1516.csv', encoding='utf-8', index=False)
     data_with_features[2].to_csv('data/season16-17/data_with_features_1617.csv', encoding='utf-8', index=False)
     data_with_features[3].to_csv('data/season17-18/data_with_features_1718.csv', encoding='utf-8', index=False)
+
+    normalize_matchframe(data_with_features[0]).to_csv('data/season14-15/data_with_features_1415_norm.csv', encoding='utf-8', index=False)
+    normalize_matchframe(data_with_features[1]).to_csv('data/season15-16/data_with_features_1516_norm.csv', encoding='utf-8', index=False)
+    normalize_matchframe(data_with_features[2]).to_csv('data/season16-17/data_with_features_1617_norm.csv', encoding='utf-8', index=False)
+    normalize_matchframe(data_with_features[3]).to_csv('data/season17-18/data_with_features_1718_norm.csv', encoding='utf-8', index=False)
+
 
     #Helper prints
     #print(data)

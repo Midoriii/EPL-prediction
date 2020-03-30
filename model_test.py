@@ -29,6 +29,7 @@ if __name__== "__main__":
 
     # Split dataset in training and test datasets
     X_train, X_test = train_test_split(data, test_size=0.2, random_state=int(time.time()))
+
     #Create nodel
     gnb = GaussianNB()
     mnb = MultinomialNB()
