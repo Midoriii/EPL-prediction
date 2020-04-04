@@ -32,8 +32,8 @@ def load_data():
     return all_data, teams_per_season
 
 
-#Create features for the whole season and last 5 matches from raw data
-def create_features(data, team_ids):
+#Create features for the whole season and last N matches from raw data
+def create_features(data, team_ids, recent_form):
     # Basis for extraction of matches before a certain match + selection of matches for all teams in the season
 
     data_with_features = []
@@ -41,14 +41,14 @@ def create_features(data, team_ids):
     for season in data:
 
         #Empty dataframe which will hold the features
-        season_dataframe = create_dataframe_of_features(season)
+        season_dataframe = create_dataframe_of_features(season, recent_form)
 
         #print(season_dataframe)
 
         #For every match in the season
         for idx, row in season.iterrows():
             #Empty dataframe which will be filled with single match data and appended to season_dataframe
-            match_dataframe = create_dataframe_of_features(season)
+            match_dataframe = create_dataframe_of_features(season, recent_form)
             match_dataframe.loc[0] = 0
             match_dataframe.loc[0]['match_id'] = row['match_id']
             match_dataframe.loc[0]['home_team_id'] = row['home_team_id']
@@ -98,44 +98,44 @@ def create_features(data, team_ids):
             compute_features(col_names_away, col_names_home, teamH_home_matches, teamH_away_matches, True, match_dataframe)
             compute_features(col_names_away, col_names_home, teamA_home_matches, teamA_away_matches, False, match_dataframe)
 
-            #If the teams played less than 5 matches, just store the seasonal means into last5 means too
-            if(len(teamA_all_matches) < 5):
+            #If the teams played less than N matches, just store the seasonal means into lastN means too
+            if(len(teamA_all_matches) < recent_form):
                 for col in col_names_away:
-                    match_dataframe.loc[0][col + "_last5"] = match_dataframe[col].values[0]
-                match_dataframe.loc[0]["away_team_att_strength_last5"] = match_dataframe["away_team_att_strength"].values[0]
-                match_dataframe.loc[0]["away_team_def_strength_last5"] = match_dataframe["away_team_def_strength"].values[0]
+                    match_dataframe.loc[0][col + "_last" + str(recent_form)] = match_dataframe[col].values[0]
+                match_dataframe.loc[0]["away_team_att_strength_last" + str(recent_form)] = match_dataframe["away_team_att_strength"].values[0]
+                match_dataframe.loc[0]["away_team_def_strength_last" + str(recent_form)] = match_dataframe["away_team_def_strength"].values[0]
 
             else:
                 #compute
-                #Get combined last 5 matches
-                last5_matches_of_teams = get_last5_team_matches(matches_before, team_ids)
+                #Get combined last N matches
+                lastN_matches_of_teams = get_lastN_team_matches(matches_before, team_ids, recent_form)
                 #Get matches of the current away team
-                teamA_last5_all_matches, teamA_last5_home_matches, teamA_last5_away_matches = get_team_matches(last5_matches_of_teams, id_of_A_team)
-                #Compute the features of the last 5 matches
-                compute_features(col_names_away, col_names_home, teamA_last5_home_matches, teamA_last5_away_matches, False, match_dataframe, "_last5")
+                teamA_lastN_all_matches, teamA_lastN_home_matches, teamA_lastN_away_matches = get_team_matches(lastN_matches_of_teams, id_of_A_team)
+                #Compute the features of the last N matches
+                compute_features(col_names_away, col_names_home, teamA_lastN_home_matches, teamA_lastN_away_matches, False, match_dataframe, "_last" + str(recent_form))
                 #Need to do relative strengths too
-                away_att_str = teamA_last5_away_matches['full_time_score_away'].mean() / last5_matches_of_teams['full_time_score_away'].mean()
-                match_dataframe.loc[0]['away_team_att_strength_last5'] = (1.0 if np.isnan(away_att_str) else away_att_str)
-                away_def_str = teamA_last5_away_matches['full_time_score_home'].mean() / last5_matches_of_teams['full_time_score_home'].mean()
-                match_dataframe.loc[0]['away_team_def_strength_last5'] = (1.0 if np.isnan(away_def_str) else away_def_str)
+                away_att_str = teamA_lastN_away_matches['full_time_score_away'].mean() / lastN_matches_of_teams['full_time_score_away'].mean()
+                match_dataframe.loc[0]['away_team_att_strength_last' + str(recent_form)] = (1.0 if np.isnan(away_att_str) else away_att_str)
+                away_def_str = teamA_lastN_away_matches['full_time_score_home'].mean() / lastN_matches_of_teams['full_time_score_home'].mean()
+                match_dataframe.loc[0]['away_team_def_strength_last' + str(recent_form)] = (1.0 if np.isnan(away_def_str) else away_def_str)
 
 
             #Equally for the home team
-            if(len(teamH_all_matches) < 5):
+            if(len(teamH_all_matches) < N):
                 for col in col_names_home:
-                    match_dataframe.loc[0][col + "_last5"] = match_dataframe[col].values[0]
-                match_dataframe.loc[0]["home_team_att_strength_last5"] = match_dataframe["home_team_att_strength"].values[0]
-                match_dataframe.loc[0]["home_team_def_strength_last5"] = match_dataframe["home_team_def_strength"].values[0]
+                    match_dataframe.loc[0][col + "_last" + str(recent_form)] = match_dataframe[col].values[0]
+                match_dataframe.loc[0]["home_team_att_strength_last" + str(recent_form)] = match_dataframe["home_team_att_strength"].values[0]
+                match_dataframe.loc[0]["home_team_def_strength_last" + str(recent_form)] = match_dataframe["home_team_def_strength"].values[0]
             else:
                 #compute
-                last5_matches_of_teams = get_last5_team_matches(matches_before, team_ids)
-                teamH_last5_all_matches, teamH_last5_home_matches, teamH_last5_away_matches = get_team_matches(last5_matches_of_teams, id_of_H_team)
-                compute_features(col_names_away, col_names_home, teamH_last5_home_matches, teamH_last5_away_matches, True, match_dataframe, "_last5")
+                lastN_matches_of_teams = get_lastN_team_matches(matches_before, team_ids, recent_form)
+                teamH_lastN_all_matches, teamH_lastN_home_matches, teamH_lastN_away_matches = get_team_matches(lastN_matches_of_teams, id_of_H_team)
+                compute_features(col_names_away, col_names_home, teamH_lastN_home_matches, teamH_lastN_away_matches, True, match_dataframe, "_last" + str(recent_form))
 
-                home_att_str = teamH_last5_home_matches['full_time_score_home'].mean() / last5_matches_of_teams['full_time_score_home'].mean()
-                match_dataframe.loc[0]['home_team_att_strength_last5'] = (1.0 if np.isnan(home_att_str) else home_att_str)
-                home_def_str = teamH_last5_home_matches['full_time_score_away'].mean() / last5_matches_of_teams['full_time_score_away'].mean()
-                match_dataframe.loc[0]['home_team_def_strength_last5'] = (1.0 if np.isnan(home_def_str) else home_def_str)
+                home_att_str = teamH_lastN_home_matches['full_time_score_home'].mean() / lastN_matches_of_teams['full_time_score_home'].mean()
+                match_dataframe.loc[0]['home_team_att_strength_last' + str(recent_form)] = (1.0 if np.isnan(home_att_str) else home_att_str)
+                home_def_str = teamH_lastN_home_matches['full_time_score_away'].mean() / lastN_matches_of_teams['full_time_score_away'].mean()
+                match_dataframe.loc[0]['home_team_def_strength_last' + str(recent_form)] = (1.0 if np.isnan(home_def_str) else home_def_str)
 
 
             #print(match_dataframe)
@@ -153,7 +153,7 @@ def create_features(data, team_ids):
 
 
 #Dataframe creation to hold the desired features
-def create_dataframe_of_features(season):
+def create_dataframe_of_features(season, recent_form):
     #The dataframe which will hold the features
     season_dataframe = pd.DataFrame(columns=season.columns)
     #We'll use our own metric of strength
@@ -162,10 +162,10 @@ def create_dataframe_of_features(season):
     #Drop unimportant cols
     season_dataframe = season_dataframe.drop(columns=['date_string', 'half_time_score', 'half_time_score_away', 'half_time_score_home',
                                                       'full_time_score', 'full_time_score_away', 'full_time_score_home',])
-    #Duplicate most of the cols for same metric during last 5 matches
+    #Duplicate most of the cols for same metric during last N matches
     for col in season_dataframe.columns:
         if col not in ['match_id', 'result_home', 'home_team_id', 'away_team_id']:
-            name = col + "_last5"
+            name = col + "_last" + str(recent_form)
             season_dataframe[name] = ""
 
     return season_dataframe
@@ -184,7 +184,7 @@ def get_team_matches(season, team_id):
 
 
 #For every desired column compute the mean for the team during the whole season
-#Suffix is there to make it reusable for last 5 matches
+#Suffix is there to make it reusable for last N matches
 def compute_features(col_names_away, col_names_home, home_matches, away_matches, home_team, match_dataframe, suffix=""):
     for i in range(len(col_names_home)):
         #Get the mean of a stat for the current home team
@@ -205,11 +205,11 @@ def compute_features(col_names_away, col_names_home, home_matches, away_matches,
             match_dataframe.loc[0][col_names_away[i]+suffix] = mean
 
 
-#Get last 5 matches of all teams, used in computing features over last 5 games to emphasize recent form
-def get_last5_team_matches(matches_before, team_ids):
+#Get last N matches of all teams, used in computing features over last 5 games to emphasize recent form
+def get_lastN_team_matches(matches_before, team_ids, recent_form):
     #We'll need the matches of all the teams to perform means over last 5 played
     #Empty dataframe to append to
-    last5_games_of_all_teams = pd.DataFrame()
+    lastN_games_of_all_teams = pd.DataFrame()
     team_dict = dict()
     #Get all games for each team and store in a dictionary where key = team id
     for team in team_ids[0]:
@@ -217,20 +217,20 @@ def get_last5_team_matches(matches_before, team_ids):
         team_dict[team] = games_of_a_team
 
     for key in team_dict:
-        #If a team has played less than 5 matches, append them all .. might actually not even be needed here
-        if len(team_dict[key].index) < 5:
-            last5_games_of_all_teams = last5_games_of_all_teams.append(team_dict[key])
-        #Otherwise append exactly last 5
+        #If a team has played less than N matches, append them all .. might actually not even be needed here
+        if len(team_dict[key].index) < recent_form:
+            lastN_games_of_all_teams = lastN_games_of_all_teams.append(team_dict[key])
+        #Otherwise append exactly last N
         else:
-            last5_games_of_all_teams = last5_games_of_all_teams.append(team_dict[key].tail(5))
+            lastN_games_of_all_teams = lastN_games_of_all_teams.append(team_dict[key].tail(recent_form))
 
     #Drop duplicated matches
-    last5_games_of_all_teams.drop_duplicates(subset='match_id', inplace=True)
+    lastN_games_of_all_teams.drop_duplicates(subset='match_id', inplace=True)
 
-    #print(last5_games_of_all_teams)
+    print(lastN_games_of_all_teams)
 
-    #Return dataframe containing last ~5 matches of each team
-    return last5_games_of_all_teams
+    #Return dataframe containing last ~N matches of each team
+    return lastN_games_of_all_teams
 
 
 #Normalize data to see if it improves performance
@@ -251,17 +251,21 @@ def normalize_matchframe(df):
 if __name__== "__main__":
     data, team_ids = load_data()
 
-    data_with_features = create_features(data, team_ids)
+    # We'll be using features describing recent form, namely for the last 3/5/8 matches
+    # to see if there's a difference and what works the best
+    for N in [3, 5, 8]:
 
-    data_with_features[0].to_csv('data/season14-15/data_with_features_1415.csv', encoding='utf-8', index=False)
-    data_with_features[1].to_csv('data/season15-16/data_with_features_1516.csv', encoding='utf-8', index=False)
-    data_with_features[2].to_csv('data/season16-17/data_with_features_1617.csv', encoding='utf-8', index=False)
-    data_with_features[3].to_csv('data/season17-18/data_with_features_1718.csv', encoding='utf-8', index=False)
+        data_with_features = create_features(data, team_ids, N)
 
-    normalize_matchframe(data_with_features[0]).to_csv('data/season14-15/data_with_features_1415_norm.csv', encoding='utf-8', index=False)
-    normalize_matchframe(data_with_features[1]).to_csv('data/season15-16/data_with_features_1516_norm.csv', encoding='utf-8', index=False)
-    normalize_matchframe(data_with_features[2]).to_csv('data/season16-17/data_with_features_1617_norm.csv', encoding='utf-8', index=False)
-    normalize_matchframe(data_with_features[3]).to_csv('data/season17-18/data_with_features_1718_norm.csv', encoding='utf-8', index=False)
+        data_with_features[0].to_csv('data/season14-15/data_with_features_1415_form' + str(N) + '.csv', encoding='utf-8', index=False)
+        data_with_features[1].to_csv('data/season15-16/data_with_features_1516_form' + str(N) + '.csv', encoding='utf-8', index=False)
+        data_with_features[2].to_csv('data/season16-17/data_with_features_1617_form' + str(N) + '.csv', encoding='utf-8', index=False)
+        data_with_features[3].to_csv('data/season17-18/data_with_features_1718_form' + str(N) + '.csv', encoding='utf-8', index=False)
+
+        normalize_matchframe(data_with_features[0]).to_csv('data/season14-15/data_with_features_1415_norm_form' + str(N) + '.csv', encoding='utf-8', index=False)
+        normalize_matchframe(data_with_features[1]).to_csv('data/season15-16/data_with_features_1516_norm_form' + str(N) + '.csv', encoding='utf-8', index=False)
+        normalize_matchframe(data_with_features[2]).to_csv('data/season16-17/data_with_features_1617_norm_form' + str(N) + '.csv', encoding='utf-8', index=False)
+        normalize_matchframe(data_with_features[3]).to_csv('data/season17-18/data_with_features_1718_norm_form' + str(N) + '.csv', encoding='utf-8', index=False)
 
 
     #Helper prints
