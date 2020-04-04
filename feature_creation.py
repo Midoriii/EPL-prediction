@@ -53,13 +53,6 @@ def create_features(data, team_ids, recent_form):
             match_dataframe.loc[0]['match_id'] = row['match_id']
             match_dataframe.loc[0]['home_team_id'] = row['home_team_id']
             match_dataframe.loc[0]['away_team_id'] = row['away_team_id']
-            #Transform results into number
-            if row['result_home'] == 'W':
-                match_dataframe.loc[0]['result_home'] = 1
-            elif row['result_home'] == 'L':
-                match_dataframe.loc[0]['result_home'] = -1
-            else:
-                match_dataframe.loc[0]['result_home'] = 0
 
             #Get the column names
             col_names_home = list(match_dataframe.columns[3:15].values)
@@ -106,7 +99,6 @@ def create_features(data, team_ids, recent_form):
                 match_dataframe.loc[0]["away_team_def_strength_last" + str(recent_form)] = match_dataframe["away_team_def_strength"].values[0]
 
             else:
-                #compute
                 #Get combined last N matches
                 lastN_matches_of_teams = get_lastN_team_matches(matches_before, team_ids, recent_form)
                 #Get matches of the current away team
@@ -127,7 +119,6 @@ def create_features(data, team_ids, recent_form):
                 match_dataframe.loc[0]["home_team_att_strength_last" + str(recent_form)] = match_dataframe["home_team_att_strength"].values[0]
                 match_dataframe.loc[0]["home_team_def_strength_last" + str(recent_form)] = match_dataframe["home_team_def_strength"].values[0]
             else:
-                #compute
                 lastN_matches_of_teams = get_lastN_team_matches(matches_before, team_ids, recent_form)
                 teamH_lastN_all_matches, teamH_lastN_home_matches, teamH_lastN_away_matches = get_team_matches(lastN_matches_of_teams, id_of_H_team)
                 compute_features(col_names_away, col_names_home, teamH_lastN_home_matches, teamH_lastN_away_matches, True, match_dataframe, "_last" + str(recent_form))
@@ -158,7 +149,8 @@ def create_dataframe_of_features(season, recent_form):
     season_dataframe = pd.DataFrame(columns=season.columns)
     #We'll use our own metric of strength
     season_dataframe = season_dataframe.assign(home_team_att_strength = "", home_team_def_strength = "", away_team_att_strength="",
-                            away_team_def_strength = "")
+                            away_team_def_strength = "", home_wins = "", away_wins = "", home_draws = "", away_draws ="",
+                            home_losses = "", away_losses = "")
     #Drop unimportant cols
     season_dataframe = season_dataframe.drop(columns=['date_string', 'half_time_score', 'half_time_score_away', 'half_time_score_home',
                                                       'full_time_score', 'full_time_score_away', 'full_time_score_home',])
@@ -204,6 +196,40 @@ def compute_features(col_names_away, col_names_home, home_matches, away_matches,
         else:
             match_dataframe.loc[0][col_names_away[i]+suffix] = mean
 
+    # Compute Wins Draws and Losses too
+    wins = 0
+    losses = 0
+    draws = 0
+
+    # Scan through the home matches and increase appropriate result count
+    for idx, row in home_matches.iterrows():
+        if row['result_home'] == 1:
+            wins += 1
+        elif row['result_home'] == -1:
+            losses += 1
+        else:
+            draws += 1
+
+    # Same for away matches
+    for idx, row in away_matches.iterrows():
+        if row['result_home'] == 1:
+            losses += 1
+        elif row['result_home'] == -1:
+            wins += 1
+        else:
+            draws += 1
+
+    # Write the results to the dataframe
+    if home_team:
+        match_dataframe.loc[0]['home_wins'+suffix] = wins
+        match_dataframe.loc[0]['home_draws'+suffix] = draws
+        match_dataframe.loc[0]['home_losses'+suffix] = losses
+    else:
+        match_dataframe.loc[0]['away_wins'+suffix] = wins
+        match_dataframe.loc[0]['away_draws'+suffix] = draws
+        match_dataframe.loc[0]['away_losses'+suffix] = losses
+
+
 
 #Get last N matches of all teams, used in computing features over last 5 games to emphasize recent form
 def get_lastN_team_matches(matches_before, team_ids, recent_form):
@@ -227,7 +253,7 @@ def get_lastN_team_matches(matches_before, team_ids, recent_form):
     #Drop duplicated matches
     lastN_games_of_all_teams.drop_duplicates(subset='match_id', inplace=True)
 
-    print(lastN_games_of_all_teams)
+    #print(lastN_games_of_all_teams)
 
     #Return dataframe containing last ~N matches of each team
     return lastN_games_of_all_teams

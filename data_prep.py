@@ -184,13 +184,13 @@ def divide_score_and_add_result(matches_combined):
                                                 'half_time_score_away': 'int8',
                                                 'full_time_score_home': 'int8',
                                                 'full_time_score_away': 'int8'})
-        #Add W/D/L marking for home team result, we'll be predicting these
+        #Transform results into representation, D/L/W in order, we'll be predicting these
         matches_combined[i].loc[matches_combined[i]['full_time_score_home'] == matches_combined[i]['full_time_score_away'],
-                                'result_home'] = 'D'
+                                'result_home'] = 0
         matches_combined[i].loc[matches_combined[i]['full_time_score_home'] < matches_combined[i]['full_time_score_away'],
-                                'result_home'] = 'L'
+                                'result_home'] = -1
         matches_combined[i].loc[matches_combined[i]['full_time_score_home'] > matches_combined[i]['full_time_score_away'],
-                                'result_home'] = 'W'
+                                'result_home'] = 1
     return matches_combined
 
 
