@@ -188,7 +188,7 @@ def divide_score_and_add_result(matches_combined):
         matches_combined[i].loc[matches_combined[i]['full_time_score_home'] == matches_combined[i]['full_time_score_away'],
                                 'result_home'] = 0
         matches_combined[i].loc[matches_combined[i]['full_time_score_home'] < matches_combined[i]['full_time_score_away'],
-                                'result_home'] = -1
+                                'result_home'] = 2
         matches_combined[i].loc[matches_combined[i]['full_time_score_home'] > matches_combined[i]['full_time_score_away'],
                                 'result_home'] = 1
     return matches_combined

@@ -53,6 +53,7 @@ def create_features(data, team_ids, recent_form):
             match_dataframe.loc[0]['match_id'] = row['match_id']
             match_dataframe.loc[0]['home_team_id'] = row['home_team_id']
             match_dataframe.loc[0]['away_team_id'] = row['away_team_id']
+            match_dataframe.loc[0]['result_home'] = row['result_home']
 
             #Get the column names
             col_names_home = list(match_dataframe.columns[3:15].values)
@@ -132,7 +133,7 @@ def create_features(data, team_ids, recent_form):
             #print(match_dataframe)
 
             #Fill NaNs if some appear
-            match_dataframe.fillna(value=-1, inplace=True)
+            match_dataframe.fillna(value=0, inplace=True)
 
             #Append constructed match to the season dataframe
             season_dataframe = season_dataframe.append(match_dataframe)
@@ -205,7 +206,7 @@ def compute_features(col_names_away, col_names_home, home_matches, away_matches,
     for idx, row in home_matches.iterrows():
         if row['result_home'] == 1:
             wins += 1
-        elif row['result_home'] == -1:
+        elif row['result_home'] == 2:
             losses += 1
         else:
             draws += 1
@@ -214,7 +215,7 @@ def compute_features(col_names_away, col_names_home, home_matches, away_matches,
     for idx, row in away_matches.iterrows():
         if row['result_home'] == 1:
             losses += 1
-        elif row['result_home'] == -1:
+        elif row['result_home'] == 2:
             wins += 1
         else:
             draws += 1

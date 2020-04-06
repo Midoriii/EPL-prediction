@@ -11,87 +11,75 @@ from sklearn.naive_bayes import GaussianNB, MultinomialNB
 #Main fuction for now
 if __name__== "__main__":
 
-    data = pd.DataFrame()
-    data = data.append(pd.read_csv('data/season14-15/data_with_features_1415.csv', encoding='utf-8', index_col='match_id'))
-    data = data.append(pd.read_csv('data/season15-16/data_with_features_1516.csv', encoding='utf-8', index_col='match_id'))
-    data = data.append(pd.read_csv('data/season16-17/data_with_features_1617.csv', encoding='utf-8', index_col='match_id'))
-    data = data.append(pd.read_csv('data/season17-18/data_with_features_1718.csv', encoding='utf-8', index_col='match_id'))
+    for N in [3,5,8]:
 
-    data_normalized = pd.DataFrame()
-    data_normalized = data_normalized.append(pd.read_csv('data/season14-15/data_with_features_1415_norm.csv', encoding='utf-8', index_col='match_id'))
-    data_normalized = data_normalized.append(pd.read_csv('data/season15-16/data_with_features_1516_norm.csv', encoding='utf-8', index_col='match_id'))
-    data_normalized = data_normalized.append(pd.read_csv('data/season16-17/data_with_features_1617_norm.csv', encoding='utf-8', index_col='match_id'))
-    data_normalized = data_normalized.append(pd.read_csv('data/season17-18/data_with_features_1718_norm.csv', encoding='utf-8', index_col='match_id'))
+        print("Form over last {} matches:\n".format(N))
 
-    #print(data)
+        data = pd.DataFrame()
+        data = data.append(pd.read_csv('data/season14-15/data_with_features_1415_form' + str(N) + '.csv', encoding='utf-8', index_col='match_id'))
+        data = data.append(pd.read_csv('data/season15-16/data_with_features_1516_form' + str(N) + '.csv', encoding='utf-8', index_col='match_id'))
+        data = data.append(pd.read_csv('data/season16-17/data_with_features_1617_form' + str(N) + '.csv', encoding='utf-8', index_col='match_id'))
+        data = data.append(pd.read_csv('data/season17-18/data_with_features_1718_form' + str(N) + '.csv', encoding='utf-8', index_col='match_id'))
 
-    #Get the column names of features, we don't want the result here
-    col_names_features = list(data.columns)
-    col_names_features.remove('result_home')
-    #This will be the Y, which we'll predict
-    col_names_outcome = 'result_home'
+        data_normalized = pd.DataFrame()
+        data_normalized = data_normalized.append(pd.read_csv('data/season14-15/data_with_features_1415_norm_form' + str(N) + '.csv', encoding='utf-8', index_col='match_id'))
+        data_normalized = data_normalized.append(pd.read_csv('data/season15-16/data_with_features_1516_norm_form' + str(N) + '.csv', encoding='utf-8', index_col='match_id'))
+        data_normalized = data_normalized.append(pd.read_csv('data/season16-17/data_with_features_1617_norm_form' + str(N) + '.csv', encoding='utf-8', index_col='match_id'))
+        data_normalized = data_normalized.append(pd.read_csv('data/season17-18/data_with_features_1718_norm_form' + str(N) + '.csv', encoding='utf-8', index_col='match_id'))
 
-    #print(col_names_features)
+        #print(data)
 
-    # Split dataset in training and test datasets
-    X_train, X_test = train_test_split(data, test_size=0.15, random_state=int(time.time()))
-    # Split normalized dataset in training and test datasets
-    Y_train, Y_test = train_test_split(data_normalized, test_size=0.15, random_state=int(time.time()))
+        #Get the column names of features, we don't want the result here
+        col_names_features = list(data.columns)
+        col_names_features.remove('result_home')
+        #This will be the Y, which we'll predict
+        col_names_outcome = 'result_home'
 
-    #Create nodel
-    gnb = GaussianNB()
-    mnb = MultinomialNB()
+        #print(col_names_features)
 
-    # Train classifier
-    gnb.fit(
-        X_train[col_names_features].values,
-        X_train[col_names_outcome]
-    )
-    y_pred = gnb.predict(X_test[col_names_features])
+        # Split dataset in training and test datasets
+        X_train, X_test = train_test_split(data, test_size=0.15, random_state=int(time.time()))
+        # Split normalized dataset in training and test datasets
+        Y_train, Y_test = train_test_split(data_normalized, test_size=0.15, random_state=int(time.time()))
 
-    print("Gaussian: Number of mistakes made out of a total {} predictions : {}, performance {:05.2f}%"
-      .format(
-          X_test.shape[0],
-          (X_test[col_names_outcome] != y_pred).sum(),
-          100*(1-(X_test[col_names_outcome] != y_pred).sum()/X_test.shape[0])
-    ))
+        #Create models
+        gnb = GaussianNB()
+        mnb = MultinomialNB()
 
-    # On normalized data
-    gnb.fit(
-        Y_train[col_names_features].values,
-        Y_train[col_names_outcome]
-    )
-    y_pred = gnb.predict(Y_test[col_names_features])
+        models = [gnb, mnb]
+        names_of_models = ["Gaussian NB", "Multinomial NB"]
 
-    print("Gaussian Normalized: Number of mistakes made out of a total {} predictions : {}, performance {:05.2f}%"
-      .format(
-          Y_test.shape[0],
-          (Y_test[col_names_outcome] != y_pred).sum(),
-          100*(1-(Y_test[col_names_outcome] != y_pred).sum()/Y_test.shape[0])
-    ))
+        # Run predictions on data and normalized data for every model
+        for model, name in zip(models, names_of_models):
 
-    mnb.fit(
-        X_train[col_names_features].values,
-        X_train[col_names_outcome]
-    )
-    y_pred = mnb.predict(X_test[col_names_features])
+            # Train classifier
+            model.fit(
+                X_train[col_names_features].values,
+                X_train[col_names_outcome]
+            )
+            y_pred = model.predict(X_test[col_names_features])
 
-    print("Multinomial: Number of mistakes made out of a total {} predictions : {}, performance {:05.2f}%"
-      .format(
-          X_test.shape[0],
-          (X_test[col_names_outcome] != y_pred).sum(),
-          100*(1-(X_test[col_names_outcome] != y_pred).sum()/X_test.shape[0])
-    ))
+            print("{}: Number of mistakes made out of a total {} predictions : {}, performance {:05.2f}%"
+              .format(
+                  name,
+                  X_test.shape[0],
+                  (X_test[col_names_outcome] != y_pred).sum(),
+                  100*(1-(X_test[col_names_outcome] != y_pred).sum()/X_test.shape[0])
+            ))
 
-    mnb.fit(
-        Y_train[col_names_features].values,
-        Y_train[col_names_outcome]
-    )
-    y_pred = mnb.predict(Y_test[col_names_features])
+            # On normalized data
+            model.fit(
+                Y_train[col_names_features].values,
+                Y_train[col_names_outcome]
+            )
+            y_pred = model.predict(Y_test[col_names_features])
 
-    print("Multinomial Normalized: Number of mistakes made out of a total {} predictions : {}, performance {:05.2f}%"
-      .format(
-          Y_test.shape[0],
-          (Y_test[col_names_outcome] != y_pred).sum(),
-          100*(1-(Y_test[col_names_outcome] != y_pred).sum()/Y_test.shape[0])
-    ))
+            print("{} Normalized: Number of mistakes made out of a total {} predictions : {}, performance {:05.2f}%"
+              .format(
+                  name,
+                  Y_test.shape[0],
+                  (Y_test[col_names_outcome] != y_pred).sum(),
+                  100*(1-(Y_test[col_names_outcome] != y_pred).sum()/Y_test.shape[0])
+            ))
+
+            print("\n")
