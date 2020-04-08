@@ -6,6 +6,7 @@ import os
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB, MultinomialNB
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.multiclass import OneVsRestClassifier
 from sklearn.svm import SVC
 
 
@@ -53,7 +54,7 @@ if __name__== "__main__":
         knn_25 = KNeighborsClassifier(n_neighbors=25)
         knn_35 = KNeighborsClassifier(n_neighbors=35)
 
-        svm = SVC(gamma='auto')
+        svm = OneVsRestClassifier(SVC(gamma='auto'))
 
 
         models = [gnb, mnb, knn_15, knn_25, knn_35, svm]
