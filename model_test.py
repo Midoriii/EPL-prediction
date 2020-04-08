@@ -5,15 +5,18 @@ import os
 
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB, MultinomialNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
 
 
 
 #Main fuction for now
 if __name__== "__main__":
 
-    for N in [3,5,8]:
+    # Dictionary to store results corresponding to model name
+    results_dict = {}
 
-        print("Form over last {} matches:\n".format(N))
+    for N in [3,5,8]:
 
         data = pd.DataFrame()
         data = data.append(pd.read_csv('data/season14-15/data_with_features_1415_form' + str(N) + '.csv', encoding='utf-8', index_col='match_id'))
@@ -46,8 +49,15 @@ if __name__== "__main__":
         gnb = GaussianNB()
         mnb = MultinomialNB()
 
-        models = [gnb, mnb]
-        names_of_models = ["Gaussian NB", "Multinomial NB"]
+        knn_15 = KNeighborsClassifier(n_neighbors=15)
+        knn_25 = KNeighborsClassifier(n_neighbors=25)
+        knn_35 = KNeighborsClassifier(n_neighbors=35)
+
+        svm = SVC(gamma='auto')
+
+
+        models = [gnb, mnb, knn_15, knn_25, knn_35, svm]
+        names_of_models = ["Gaussian NB", "Multinomial NB", "KNN-15", "KNN-25", "KNN-35", "SVM"]
 
         # Run predictions on data and normalized data for every model
         for model, name in zip(models, names_of_models):
@@ -59,13 +69,10 @@ if __name__== "__main__":
             )
             y_pred = model.predict(X_test[col_names_features])
 
-            print("{}: Number of mistakes made out of a total {} predictions : {}, performance {:05.2f}%"
-              .format(
-                  name,
-                  X_test.shape[0],
-                  (X_test[col_names_outcome] != y_pred).sum(),
-                  100*(1-(X_test[col_names_outcome] != y_pred).sum()/X_test.shape[0])
-            ))
+            # Get the performance/accuraccy in %
+            perf1 = 100*(1-(X_test[col_names_outcome] != y_pred).sum()/X_test.shape[0])
+
+            results_dict[name + "  form: " + str(N)] = perf1
 
             # On normalized data
             model.fit(
@@ -74,12 +81,12 @@ if __name__== "__main__":
             )
             y_pred = model.predict(Y_test[col_names_features])
 
-            print("{} Normalized: Number of mistakes made out of a total {} predictions : {}, performance {:05.2f}%"
-              .format(
-                  name,
-                  Y_test.shape[0],
-                  (Y_test[col_names_outcome] != y_pred).sum(),
-                  100*(1-(Y_test[col_names_outcome] != y_pred).sum()/Y_test.shape[0])
-            ))
+            perf2 = 100*(1-(Y_test[col_names_outcome] != y_pred).sum()/Y_test.shape[0])
 
-            print("\n")
+            results_dict[name + "  form: " + str(N) + "  Normalized"] = perf2
+
+    print("\n")
+    # Print the accuraccy of each model in descending order
+    for model in sorted(results_dict, key=results_dict.get, reverse = True):
+        print(model + "   " + str(results_dict[model]))
+    print("\n")
