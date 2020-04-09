@@ -14,7 +14,22 @@ from sklearn.svm import SVC
 
 
 
-#Main fuction for now
+# Function to fit desired classifier on given data and store the performance on training set in a
+# dictionary containing results, by returning the acc
+def evaluate_model(X_train, Y_train, X_test, Y_test, model):
+    # Train classifier
+    model.fit(
+        X_train,
+        Y_train
+    )
+    # Predict on test data
+    y_pred = model.predict(X_test)
+
+    # Return the performance/accuraccy in %
+    return 100*(1-(Y_test != y_pred).sum()/X_test.shape[0])
+
+
+# Main fuction for now
 if __name__== "__main__":
 
     # Dictionary to store results corresponding to model name
@@ -83,28 +98,19 @@ if __name__== "__main__":
 
             #print(name)
 
-            # Train classifier
-            model.fit(
-                X_train[col_names_features].values,
-                X_train[col_names_outcome]
-            )
-            y_pred = model.predict(X_test[col_names_features])
+            # Compute accuraccy for raw data
+            results_dict[name + "  form: " + str(N)] = evaluate_model(X_train[col_names_features].values,
+                                                                      X_train[col_names_outcome],
+                                                                      X_test[col_names_features],
+                                                                      X_test[col_names_outcome],
+                                                                      model)
 
-            # Get the performance/accuraccy in %
-            perf1 = 100*(1-(X_test[col_names_outcome] != y_pred).sum()/X_test.shape[0])
-
-            results_dict[name + "  form: " + str(N)] = perf1
-
-            # On normalized data
-            model.fit(
-                Y_train[col_names_features].values,
-                Y_train[col_names_outcome]
-            )
-            y_pred = model.predict(Y_test[col_names_features])
-
-            perf2 = 100*(1-(Y_test[col_names_outcome] != y_pred).sum()/Y_test.shape[0])
-
-            results_dict[name + "  form: " + str(N) + "  Normalized"] = perf2
+            # And for nromalizd data
+            results_dict[name + "  form: " + str(N) + "  Normalized"] = evaluate_model(Y_train[col_names_features].values,
+                                                                      Y_train[col_names_outcome],
+                                                                      Y_test[col_names_features],
+                                                                      Y_test[col_names_outcome],
+                                                                      model)
 
     print("\n")
     # Print the accuraccy of each model in descending order
