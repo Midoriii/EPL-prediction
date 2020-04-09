@@ -7,6 +7,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB, MultinomialNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.multiclass import OneVsRestClassifier
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.svm import SVC
 
 
@@ -54,14 +57,31 @@ if __name__== "__main__":
         knn_25 = KNeighborsClassifier(n_neighbors=25)
         knn_35 = KNeighborsClassifier(n_neighbors=35)
 
-        svm = OneVsRestClassifier(SVC(gamma='auto'))
+        svm = OneVsRestClassifier(SVC(C=1.5, gamma='auto'))
+
+        forest = RandomForestClassifier(n_estimators=50)
+        forest_2 = RandomForestClassifier(n_estimators=100)
+        forest_3 = RandomForestClassifier(n_estimators=200)
+
+        extra_forest = ExtraTreesClassifier(n_estimators=100)
+        extra_forest_2 = ExtraTreesClassifier(n_estimators=200)
+
+        ada = AdaBoostClassifier(n_estimators=50)
+        ada_2 = AdaBoostClassifier(n_estimators=100)
+        ada_3 = AdaBoostClassifier(n_estimators=200)
 
 
-        models = [gnb, mnb, knn_15, knn_25, knn_35, svm]
-        names_of_models = ["Gaussian NB", "Multinomial NB", "KNN-15", "KNN-25", "KNN-35", "SVM"]
+        models = [gnb, mnb, knn_15, knn_25, knn_35, svm, forest, forest_2, forest_3,
+                  ada, ada_2, ada_3, extra_forest, extra_forest_2]
+        names_of_models = ["Gaussian NB", "Multinomial NB", "KNN-15", "KNN-25", "KNN-35", "SVM",
+                           "Random Forest-50", "Random Forest-100", "Random Forest-200",
+                           "AdaBoost-50", "AdaBoost-100", "AdaBoost-200", "Extreme Forest-50",
+                           "Extreme Forest-100"]
 
         # Run predictions on data and normalized data for every model
         for model, name in zip(models, names_of_models):
+
+            #print(name)
 
             # Train classifier
             model.fit(
