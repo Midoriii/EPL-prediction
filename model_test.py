@@ -4,6 +4,8 @@ import time
 import os
 
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
 from sklearn.naive_bayes import GaussianNB, MultinomialNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.multiclass import OneVsRestClassifier
@@ -26,7 +28,7 @@ def evaluate_model(X_train, Y_train, X_test, Y_test, model):
     y_pred = model.predict(X_test)
 
     # Return the performance/accuraccy in %
-    return 100*(1-(Y_test != y_pred).sum()/X_test.shape[0])
+    return accuracy_score(Y_test, y_pred)
 
 
 # Main fuction for now
