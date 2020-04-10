@@ -67,6 +67,12 @@ def create_features(data, team_ids, recent_form, detailed_data):
             col_names_away = list(match_dataframe.columns[15:28].values)
             #Isn't needed there
             col_names_away.remove('result_home')
+            #Add players
+            col_names_home_players = list(match_dataframe.columns[38:49].values)
+            col_names_away_players = list(match_dataframe.columns[49:60].values)
+            #Group together with W/D/L
+            col_names_A_all = col_names_away + col_names_away_players + ['away_wins','away_losses','away_draws']
+            col_names_H_all = col_names_home + col_names_home_players + ['home_wins','home_losses','home_draws']
 
             #Get all the matches played before the one we're building features for
             matches_before = season[season['date_string'] < row['date_string']]
@@ -99,9 +105,18 @@ def create_features(data, team_ids, recent_form, detailed_data):
             compute_features(col_names_away, col_names_home, teamH_home_matches, teamH_away_matches, True, match_dataframe)
             compute_features(col_names_away, col_names_home, teamA_home_matches, teamA_away_matches, False, match_dataframe)
 
-            #If the teams played less than N matches, just store the seasonal means into lastN means too
+            # Get the starting 11 players of both teams
+            # Thankfully the json is ordered exactly as needed
+            H_starting_11 = list(detailed_season[str(row['match_id'])][str(id_of_H_team)]['Player_stats'].keys())[:11]
+            A_starting_11 = list(detailed_season[str(row['match_id'])][str(id_of_A_team)]['Player_stats'].keys())[:11]
+
+            #print(H_starting_11)
+            #print(A_starting_11)
+
+
+            #If the teams played less than N matches, just store the seasonal means etc into lastN too
             if(len(teamA_all_matches) < recent_form):
-                for col in col_names_away:
+                for col in col_names_A_all:
                     match_dataframe.loc[0][col + "_last" + str(recent_form)] = match_dataframe[col].values[0]
                 match_dataframe.loc[0]["away_team_att_strength_last" + str(recent_form)] = match_dataframe["away_team_att_strength"].values[0]
                 match_dataframe.loc[0]["away_team_def_strength_last" + str(recent_form)] = match_dataframe["away_team_def_strength"].values[0]
@@ -122,7 +137,7 @@ def create_features(data, team_ids, recent_form, detailed_data):
 
             #Equally for the home team
             if(len(teamH_all_matches) < N):
-                for col in col_names_home:
+                for col in col_names_H_all:
                     match_dataframe.loc[0][col + "_last" + str(recent_form)] = match_dataframe[col].values[0]
                 match_dataframe.loc[0]["home_team_att_strength_last" + str(recent_form)] = match_dataframe["home_team_att_strength"].values[0]
                 match_dataframe.loc[0]["home_team_def_strength_last" + str(recent_form)] = match_dataframe["home_team_def_strength"].values[0]
@@ -135,15 +150,6 @@ def create_features(data, team_ids, recent_form, detailed_data):
                 match_dataframe.loc[0]['home_team_att_strength_last' + str(recent_form)] = (1.0 if np.isnan(home_att_str) else home_att_str)
                 home_def_str = teamH_lastN_home_matches['full_time_score_away'].mean() / lastN_matches_of_teams['full_time_score_away'].mean()
                 match_dataframe.loc[0]['home_team_def_strength_last' + str(recent_form)] = (1.0 if np.isnan(home_def_str) else home_def_str)
-
-
-            # Get the starting 11 players of both teams
-            # Thankfully the json is ordered exactly as needed
-            H_starting_11 = list(detailed_season[str(row['match_id'])][str(id_of_H_team)]['Player_stats'].keys())[:11]
-            A_starting_11 = list(detailed_season[str(row['match_id'])][str(id_of_A_team)]['Player_stats'].keys())[:11]
-
-            print(H_starting_11)
-            print(A_starting_11)
 
             #print(match_dataframe)
 
