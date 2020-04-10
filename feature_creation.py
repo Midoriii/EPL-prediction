@@ -113,6 +113,10 @@ def create_features(data, team_ids, recent_form, detailed_data):
             #print(H_starting_11)
             #print(A_starting_11)
 
+            # Compute the average rating of players for the home starting 11
+            compute_starting_lineup_rating(H_starting_11, teamH_all_matches, id_of_H_team, detailed_season, match_dataframe, True, "")
+            # Equally for the away side
+            compute_starting_lineup_rating(A_starting_11, teamA_all_matches, id_of_A_team, detailed_season, match_dataframe, False, "")
 
             #If the teams played less than N matches, just store the seasonal means etc into lastN too
             if(len(teamA_all_matches) < recent_form):
@@ -128,6 +132,8 @@ def create_features(data, team_ids, recent_form, detailed_data):
                 teamA_lastN_all_matches, teamA_lastN_home_matches, teamA_lastN_away_matches = get_team_matches(lastN_matches_of_teams, id_of_A_team)
                 #Compute the features of the last N matches
                 compute_features(col_names_away, col_names_home, teamA_lastN_home_matches, teamA_lastN_away_matches, False, match_dataframe, "_last" + str(recent_form))
+                #Compute the player ratings
+                compute_starting_lineup_rating(A_starting_11, teamA_lastN_all_matches, id_of_A_team, detailed_season, match_dataframe, False, "_last" + str(recent_form))
                 #Need to do relative strengths too
                 away_att_str = teamA_lastN_away_matches['full_time_score_away'].mean() / lastN_matches_of_teams['full_time_score_away'].mean()
                 match_dataframe.loc[0]['away_team_att_strength_last' + str(recent_form)] = (1.0 if np.isnan(away_att_str) else away_att_str)
@@ -145,6 +151,7 @@ def create_features(data, team_ids, recent_form, detailed_data):
                 lastN_matches_of_teams = get_lastN_team_matches(matches_before, team_ids, recent_form)
                 teamH_lastN_all_matches, teamH_lastN_home_matches, teamH_lastN_away_matches = get_team_matches(lastN_matches_of_teams, id_of_H_team)
                 compute_features(col_names_away, col_names_home, teamH_lastN_home_matches, teamH_lastN_away_matches, True, match_dataframe, "_last" + str(recent_form))
+                compute_starting_lineup_rating(H_starting_11, teamH_lastN_all_matches, id_of_H_team, detailed_season, match_dataframe, True, "_last" + str(recent_form))
 
                 home_att_str = teamH_lastN_home_matches['full_time_score_home'].mean() / lastN_matches_of_teams['full_time_score_home'].mean()
                 match_dataframe.loc[0]['home_team_att_strength_last' + str(recent_form)] = (1.0 if np.isnan(home_att_str) else home_att_str)
@@ -254,6 +261,37 @@ def compute_features(col_names_away, col_names_home, home_matches, away_matches,
         match_dataframe.loc[0]['away_wins'+suffix] = wins
         match_dataframe.loc[0]['away_draws'+suffix] = draws
         match_dataframe.loc[0]['away_losses'+suffix] = losses
+
+
+#Compute the average player rating for the whole starting 11
+def compute_starting_lineup_rating(starting_players, matches_before, team_id, detailed_match, match_dataframe, home_team, suffix):
+    #For every player
+    for i in range(0,11):
+        #How many time he appeared
+        count = 0
+        #Temp rating
+        rating = 0
+        #Scan each match for his presence
+        for idx, row in matches_before.iterrows():
+            #Check if the playername is present in the match's keys
+            if starting_players[i] in detailed_match[str(row['match_id'])][str(team_id)]['Player_stats'].keys():
+                count += 1
+                #Grab the rating
+                rating += float(detailed_match[str(row['match_id'])][str(team_id)]['Player_stats'][starting_players[i]]['player_details']['player_rating'])
+
+        #If it's the player's first time playing, set default rating as 6.0
+        if rating == 0:
+            rating = 6.0
+            count = 1
+
+        #Compute avg rating
+        rating /= count
+
+        #Store the ratings
+        if home_team:
+            match_dataframe.loc[0]['home_player_' + str(i+1) + suffix] = rating
+        else:
+            match_dataframe.loc[0]['away_player_' + str(i+1) + suffix] = rating
 
 
 
