@@ -18,6 +18,13 @@ def load_data():
 
     all_data = [data1415, data1516, data1617, data1718]
 
+    season_stats1415 = json.load(open('data/season14-15/season_stats.json','r', encoding="utf8"))
+    season_stats1516 = json.load(open('data/season15-16/season_stats.json','r', encoding="utf8"))
+    season_stats1617 = json.load(open('data/season16-17/season_stats.json','r', encoding="utf8"))
+    season_stats1718 = json.load(open('data/season17-18/season_stats.json','r', encoding="utf8"))
+
+    detailed_data = [season_stats1415, season_stats1516, season_stats1617, season_stats1718]
+
     #Gotta drop and reindex since the data contains a column full of 0
     for season in all_data:
         season.drop(season.columns[0], axis=1, inplace=True)
@@ -29,16 +36,16 @@ def load_data():
         teams_per_season.append(season.home_team_id.unique())
 
 
-    return all_data, teams_per_season
+    return all_data, teams_per_season, detailed_data
 
 
 #Create features for the whole season and last N matches from raw data
-def create_features(data, team_ids, recent_form):
+def create_features(data, team_ids, recent_form, detailed_data):
     # Basis for extraction of matches before a certain match + selection of matches for all teams in the season
 
     data_with_features = []
 
-    for season in data:
+    for season, detailed_season in zip(data, detailed_data):
 
         #Empty dataframe which will hold the features
         season_dataframe = create_dataframe_of_features(season, recent_form)
@@ -130,6 +137,14 @@ def create_features(data, team_ids, recent_form):
                 match_dataframe.loc[0]['home_team_def_strength_last' + str(recent_form)] = (1.0 if np.isnan(home_def_str) else home_def_str)
 
 
+            # Get the starting 11 players of both teams
+            # Thankfully the json is ordered exactly as needed
+            H_starting_11 = list(detailed_season[str(row['match_id'])][str(id_of_H_team)]['Player_stats'].keys())[:11]
+            A_starting_11 = list(detailed_season[str(row['match_id'])][str(id_of_A_team)]['Player_stats'].keys())[:11]
+
+            print(H_starting_11)
+            print(A_starting_11)
+
             #print(match_dataframe)
 
             #Fill NaNs if some appear
@@ -148,10 +163,14 @@ def create_features(data, team_ids, recent_form):
 def create_dataframe_of_features(season, recent_form):
     #The dataframe which will hold the features
     season_dataframe = pd.DataFrame(columns=season.columns)
-    #We'll use our own metric of strength
+    #We'll use our own metric of strength + past results + player ratings
     season_dataframe = season_dataframe.assign(home_team_att_strength = "", home_team_def_strength = "", away_team_att_strength="",
                             away_team_def_strength = "", home_wins = "", away_wins = "", home_draws = "", away_draws ="",
-                            home_losses = "", away_losses = "")
+                            home_losses = "", away_losses = "", home_player_1 = "6.0", home_player_2 = "6.0", home_player_3 = "6.0",
+                            home_player_4 = "6.0", home_player_5 = "6.0", home_player_6 = "6.0", home_player_7 = "6.0", home_player_8 = "6.0",
+                            home_player_9 = "6.0", home_player_10 = "6.0", home_player_11 = "6.0", away_player_1 = "6.0", away_player_2 = "6.0",
+                            away_player_3 = "6.0", away_player_4 = "6.0", away_player_5 = "6.0", away_player_6 = "6.0", away_player_7 = "6.0", away_player_8 = "6.0",
+                            away_player_9 = "6.0", away_player_10 = "6.0", away_player_11 = "6.0")
     #Drop unimportant cols
     season_dataframe = season_dataframe.drop(columns=['date_string', 'half_time_score', 'half_time_score_away', 'half_time_score_home',
                                                       'full_time_score', 'full_time_score_away', 'full_time_score_home',])
@@ -276,13 +295,13 @@ def normalize_matchframe(df):
 
 #Main fuction for now
 if __name__== "__main__":
-    data, team_ids = load_data()
+    data, team_ids, detailed_data = load_data()
 
     # We'll be using features describing recent form, namely for the last 3/5/8 matches
     # to see if there's a difference and what works the best
     for N in [3, 5, 8]:
 
-        data_with_features = create_features(data, team_ids, N)
+        data_with_features = create_features(data, team_ids, N, detailed_data)
 
         data_with_features[0].to_csv('data/season14-15/data_with_features_1415_form' + str(N) + '.csv', encoding='utf-8', index=False)
         data_with_features[1].to_csv('data/season15-16/data_with_features_1516_form' + str(N) + '.csv', encoding='utf-8', index=False)
