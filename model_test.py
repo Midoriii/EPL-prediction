@@ -5,6 +5,7 @@ import os
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+from sklearn.feature_selection import SelectKBest, chi2
 
 from sklearn.naive_bayes import GaussianNB, MultinomialNB
 from sklearn.neighbors import KNeighborsClassifier
@@ -66,6 +67,21 @@ if __name__== "__main__":
         # Split normalized dataset in training and test datasets
         Y_train, Y_test = train_test_split(data_normalized, test_size=0.15, random_state=int(time.time()))
 
+        #Feature extraction
+        selector = SelectKBest(chi2, k=20)
+        selector.fit(X_train[col_names_features], X_train[col_names_outcome])
+        #Which features are selected ?
+        mask = selector.get_support(indices=True)
+        reduced_features = X_train.columns[mask]
+        #print(reduced_features)
+
+        #Do again for normalized data
+        selector.fit(Y_train[col_names_features], Y_train[col_names_outcome])
+        #Which features are selected ?
+        mask = selector.get_support(indices=True)
+        reduced_features_normalized = Y_train.columns[mask]
+        #print(reduced_features_normalized)
+
         #Create models
         gnb = GaussianNB()
         mnb = MultinomialNB()
@@ -107,10 +123,24 @@ if __name__== "__main__":
                                                                       X_test[col_names_outcome],
                                                                       model)
 
-            # And for nromalizd data
+            # And for normalizd data
             results_dict[name + "  form: " + str(N) + "  Normalized"] = evaluate_model(Y_train[col_names_features].values,
                                                                       Y_train[col_names_outcome],
                                                                       Y_test[col_names_features],
+                                                                      Y_test[col_names_outcome],
+                                                                      model)
+
+            # Compute accuraccy for feature reduced raw data
+            results_dict[name + "  form: " + str(N) + "   Reduced"] = evaluate_model(X_train[reduced_features].values,
+                                                                      X_train[col_names_outcome],
+                                                                      X_test[reduced_features],
+                                                                      X_test[col_names_outcome],
+                                                                      model)
+
+            # And for reduced normalizd data
+            results_dict[name + "  form: " + str(N) + "  Normalized   Reduced"] = evaluate_model(Y_train[reduced_features_normalized].values,
+                                                                      Y_train[col_names_outcome],
+                                                                      Y_test[reduced_features_normalized],
                                                                       Y_test[col_names_outcome],
                                                                       model)
 
