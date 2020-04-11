@@ -32,6 +32,18 @@ def evaluate_model(X_train, Y_train, X_test, Y_test, model):
     return accuracy_score(Y_test, y_pred)
 
 
+# Get the column names that are most important according to selectKbest features
+def get_reduced_columns(N, data, col_names_features, col_names_outcome):
+    selector = SelectKBest(chi2, k=N)
+    #Fit the selector on data
+    selector.fit(data[col_names_features], data[col_names_outcome])
+    #Which features are selected ?
+    mask = selector.get_support(indices=True)
+    #Return names of the most important cols
+    return data.columns[mask]
+
+
+
 # Main fuction for now
 if __name__== "__main__":
 
@@ -67,19 +79,11 @@ if __name__== "__main__":
         # Split normalized dataset in training and test datasets
         Y_train, Y_test = train_test_split(data_normalized, test_size=0.15, random_state=int(time.time()))
 
-        #Feature extraction
-        selector = SelectKBest(chi2, k=20)
-        selector.fit(X_train[col_names_features], X_train[col_names_outcome])
-        #Which features are selected ?
-        mask = selector.get_support(indices=True)
-        reduced_features = X_train.columns[mask]
+        #Feature extraction - 20 top
+        reduced_features_20 = get_reduced_columns(20, X_train, col_names_features, col_names_outcome)
         #print(reduced_features)
-
         #Do again for normalized data
-        selector.fit(Y_train[col_names_features], Y_train[col_names_outcome])
-        #Which features are selected ?
-        mask = selector.get_support(indices=True)
-        reduced_features_normalized = Y_train.columns[mask]
+        reduced_features_normalized_20 = get_reduced_columns(20, Y_train, col_names_features, col_names_outcome)
         #print(reduced_features_normalized)
 
         #Create models
@@ -131,16 +135,16 @@ if __name__== "__main__":
                                                                       model)
 
             # Compute accuraccy for feature reduced raw data
-            results_dict[name + "  form: " + str(N) + "   Reduced"] = evaluate_model(X_train[reduced_features].values,
+            results_dict[name + "  form: " + str(N) + "   Reduced"] = evaluate_model(X_train[reduced_features_20].values,
                                                                       X_train[col_names_outcome],
-                                                                      X_test[reduced_features],
+                                                                      X_test[reduced_features_20],
                                                                       X_test[col_names_outcome],
                                                                       model)
 
             # And for reduced normalizd data
-            results_dict[name + "  form: " + str(N) + "  Normalized   Reduced"] = evaluate_model(Y_train[reduced_features_normalized].values,
+            results_dict[name + "  form: " + str(N) + "  Normalized   Reduced"] = evaluate_model(Y_train[reduced_features_normalized_20].values,
                                                                       Y_train[col_names_outcome],
-                                                                      Y_test[reduced_features_normalized],
+                                                                      Y_test[reduced_features_normalized_20],
                                                                       Y_test[col_names_outcome],
                                                                       model)
 
