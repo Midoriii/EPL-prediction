@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import time
 import os
+import csv
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
@@ -35,10 +36,10 @@ def evaluate_model(X_train, Y_train, X_test, Y_test, model):
 
 
 # Get the column names that are most important according to selectKbest features
-def get_reduced_columns(N, data, col_names_features, col_names_outcome):
+def get_reduced_columns(N, data, labels):
     selector = SelectKBest(chi2, k=N)
     #Fit the selector on data
-    selector.fit(data[col_names_features], data[col_names_outcome])
+    selector.fit(data, labels)
     #Which features are selected ?
     mask = selector.get_support(indices=True)
     #Return names of the most important cols
@@ -53,7 +54,7 @@ if __name__== "__main__":
     results_dict = defaultdict(lambda: 0)
 
     # How many testing iterations
-    iterations = 20
+    iterations = 1
 
     for N in [3,5,8]:
 
@@ -88,12 +89,30 @@ if __name__== "__main__":
             # Split normalized dataset in training and test datasets
             Y_train, Y_test = train_test_split(data_normalized, test_size=0.15, random_state=int(time.time()))
 
+            # Split data into features and labels
+            train_data = X_train[col_names_features]
+            train_labels = X_train[col_names_outcome]
+            test_data = X_test[col_names_features]
+            test_labels = X_test[col_names_outcome]
+
+            train_data_norm = Y_train[col_names_features]
+            train_labels_norm = Y_train[col_names_outcome]
+            test_data_norm = Y_test[col_names_features]
+            test_labels_norm = Y_test[col_names_outcome]
+
             #Feature extraction - 20 top
-            reduced_features_20 = get_reduced_columns(20, X_train, col_names_features, col_names_outcome)
-            #print(reduced_features)
+            reduced_features_20 = get_reduced_columns(20, train_data, train_labels)
             #Do again for normalized data
-            reduced_features_normalized_20 = get_reduced_columns(20, Y_train, col_names_features, col_names_outcome)
-            #print(reduced_features_normalized)
+            reduced_features_normalized_20 = get_reduced_columns(20, train_data_norm, train_labels_norm)
+
+            reduced_features_30 = get_reduced_columns(30, train_data, train_labels)
+            reduced_features_normalized_30 = get_reduced_columns(30, train_data_norm, train_labels_norm)
+
+            reduced_features_40 = get_reduced_columns(40, train_data, train_labels)
+            reduced_features_normalized_40 = get_reduced_columns(40, train_data_norm, train_labels_norm)
+
+            reduced_features_50 = get_reduced_columns(50, train_data, train_labels)
+            reduced_features_normalized_50 = get_reduced_columns(50, train_data_norm, train_labels_norm)
 
             #Create models
             gnb = GaussianNB()
@@ -105,6 +124,7 @@ if __name__== "__main__":
             knn_50 = KNeighborsClassifier(n_neighbors=50)
             knn_70 = KNeighborsClassifier(n_neighbors=70)
             knn_100 = KNeighborsClassifier(n_neighbors=100)
+            knn_120 = KNeighborsClassifier(n_neighbors=120)
 
             svm = OneVsRestClassifier(SVC(C=1.5, gamma='auto'))
             svm_2 = OneVsRestClassifier(SVC(C=10, gamma='auto'))
@@ -113,56 +133,72 @@ if __name__== "__main__":
             forest_2 = RandomForestClassifier(n_estimators=100)
             forest_3 = RandomForestClassifier(n_estimators=200)
             forest_4 = RandomForestClassifier(n_estimators=400)
+            forest_5 = RandomForestClassifier(n_estimators=600)
+            forest_6 = RandomForestClassifier(n_estimators=1000)
 
             extra_forest = ExtraTreesClassifier(n_estimators=100)
             extra_forest_2 = ExtraTreesClassifier(n_estimators=200)
             extra_forest_3 = ExtraTreesClassifier(n_estimators=400)
+            extra_forest_4 = ExtraTreesClassifier(n_estimators=600)
+            extra_forest_5 = ExtraTreesClassifier(n_estimators=1000)
 
             ada = AdaBoostClassifier(n_estimators=50)
             ada_2 = AdaBoostClassifier(n_estimators=100)
             ada_3 = AdaBoostClassifier(n_estimators=200)
 
 
-            models = [gnb, mnb, knn_15, knn_25, knn_35, knn_50, knn_70, knn_100, svm, svm_2,
-                      forest, forest_2, forest_3, forest_4, ada, ada_2, ada_3,
-                      extra_forest, extra_forest_2, extra_forest_3]
+            models = [gnb, mnb, knn_15, knn_25, knn_35, knn_50, knn_70, knn_100, knn_120, svm, svm_2,
+                      forest, forest_2, forest_3, forest_4, forest_5, forest_6, ada, ada_2, ada_3,
+                      extra_forest, extra_forest_2, extra_forest_3, extra_forest_4, extra_forest_5]
             names_of_models = ["Gaussian NB", "Multinomial NB", "KNN-15", "KNN-25", "KNN-35", "KNN-50", "KNN-70",
-                               "KNN-100", "SVM", "SVM_2", "Random Forest-50", "Random Forest-100", "Random Forest-200",
-                               "Random Forest-400", "AdaBoost-50", "AdaBoost-100", "AdaBoost-200",
-                               "Extreme Forest-100", "Extreme Forest-200", "Extreme Forest-400"]
+                               "KNN-100", "KNN-120", "SVM", "SVM_2", "Random Forest-50", "Random Forest-100",
+                               "Random Forest-200", "Random Forest-400", "Random Forest-600",
+                               "Random Forest-1000","AdaBoost-50", "AdaBoost-100", "AdaBoost-200",
+                               "Extreme Forest-100", "Extreme Forest-200", "Extreme Forest-400",
+                               "Extreme Forest-600", "Extreme Forest-1000"]
+
+            # Things to zip together, to make the final loop more readable
+            features = [reduced_features_20, reduced_features_30, reduced_features_40, reduced_features_50]
+            features_normalized = [reduced_features_normalized_20, reduced_features_normalized_30, reduced_features_normalized_40, reduced_features_normalized_50]
+
+            descriptions = ["  form: " + str(N) + "   Reduced-20",
+                            "  form: " + str(N) + "   Reduced-30",
+                            "  form: " + str(N) + "   Reduced-40",
+                            "  form: " + str(N) + "   Reduced-50"]
+            descriptions_normalized = ["  form: " + str(N) + "   Normalized   Reduced-20",
+                            "  form: " + str(N) + "   Normalized   Reduced-30",
+                            "  form: " + str(N) + "   Normalized   Reduced-40",
+                            "  form: " + str(N) + "   Normalized   Reduced-50"]
 
             # Run predictions on data and normalized data for every model
             for model, name in zip(models, names_of_models):
-
-                #print(name)
-
                 # Compute accuraccy for raw data
-                results_dict[name + "  form: " + str(N)] += evaluate_model(X_train[col_names_features].values,
-                                                                          X_train[col_names_outcome],
-                                                                          X_test[col_names_features],
-                                                                          X_test[col_names_outcome],
+                results_dict[name + "  form: " + str(N)] += evaluate_model(train_data,
+                                                                          train_labels,
+                                                                          test_data,
+                                                                          test_labels,
+                                                                          model)
+                # And for normalized data
+                results_dict[name + "  form: " + str(N) + "   Normalized"] += evaluate_model(train_data_norm,
+                                                                          train_labels_norm,
+                                                                          test_data_norm,
+                                                                          test_labels_norm,
                                                                           model)
 
-                # And for normalizd data
-                results_dict[name + "  form: " + str(N) + "  Normalized"] += evaluate_model(Y_train[col_names_features].values,
-                                                                          Y_train[col_names_outcome],
-                                                                          Y_test[col_names_features],
-                                                                          Y_test[col_names_outcome],
-                                                                          model)
+                # Now do the same for reduced features
+                for feats, feats_n, desc, desc_n in zip(features, features_normalized, descriptions, descriptions_normalized):
+                    results_dict[name + desc] += evaluate_model(train_data[feats],
+                                                                              train_labels,
+                                                                              test_data[feats],
+                                                                              test_labels,
+                                                                              model)
 
-                # Compute accuraccy for feature reduced raw data
-                results_dict[name + "  form: " + str(N) + "   Reduced"] += evaluate_model(X_train[reduced_features_20].values,
-                                                                          X_train[col_names_outcome],
-                                                                          X_test[reduced_features_20],
-                                                                          X_test[col_names_outcome],
-                                                                          model)
+                    results_dict[name + desc_n] += evaluate_model(train_data_norm[feats_n],
+                                                                              train_labels_norm,
+                                                                              test_data_norm[feats_n],
+                                                                              test_labels_norm,
+                                                                              model)
 
-                # And for reduced normalizd data
-                results_dict[name + "  form: " + str(N) + "  Normalized   Reduced"] += evaluate_model(Y_train[reduced_features_normalized_20].values,
-                                                                          Y_train[col_names_outcome],
-                                                                          Y_test[reduced_features_normalized_20],
-                                                                          Y_test[col_names_outcome],
-                                                                          model)
 
     # Average the results
     for key in results_dict.keys():
@@ -173,3 +209,8 @@ if __name__== "__main__":
     for model in sorted(results_dict, key=results_dict.get, reverse = True):
         print(model + "   " + str(results_dict[model]))
     print("\n")
+
+    # Write the eval results
+    w = csv.writer(open("eval/results.csv", "w"))
+    for key, val in results_dict.items():
+        w.writerow([key, val])
