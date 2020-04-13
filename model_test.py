@@ -3,6 +3,7 @@ import numpy as np
 import time
 import os
 import csv
+import sys
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
@@ -31,7 +32,7 @@ def evaluate_model(X_train, Y_train, X_test, Y_test, model):
     # Predict on test data
     y_pred = model.predict(X_test)
 
-    # Return the performance/accuraccy in %
+    # Return the performance/accuracy in %
     return accuracy_score(Y_test, y_pred)
 
 
@@ -54,7 +55,12 @@ if __name__== "__main__":
     results_dict = defaultdict(lambda: 0)
 
     # How many testing iterations
-    iterations = 1
+    if len(sys.argv) > 1:
+        iterations = int(sys.argv[1])
+    # If not specified, just do 5
+    else:
+        iterations = 5
+
 
     for N in [3,5,8]:
 
@@ -114,6 +120,9 @@ if __name__== "__main__":
             reduced_features_50 = get_reduced_columns(50, train_data, train_labels)
             reduced_features_normalized_50 = get_reduced_columns(50, train_data_norm, train_labels_norm)
 
+            reduced_features_60 = get_reduced_columns(60, train_data, train_labels)
+            reduced_features_normalized_60 = get_reduced_columns(60, train_data_norm, train_labels_norm)
+
             #Create models
             gnb = GaussianNB()
             mnb = MultinomialNB()
@@ -158,17 +167,19 @@ if __name__== "__main__":
                                "Extreme Forest-600", "Extreme Forest-1000"]
 
             # Things to zip together, to make the final loop more readable
-            features = [reduced_features_20, reduced_features_30, reduced_features_40, reduced_features_50]
-            features_normalized = [reduced_features_normalized_20, reduced_features_normalized_30, reduced_features_normalized_40, reduced_features_normalized_50]
+            features = [reduced_features_20, reduced_features_30, reduced_features_40, reduced_features_50, reduced_features_60]
+            features_normalized = [reduced_features_normalized_20, reduced_features_normalized_30, reduced_features_normalized_40, reduced_features_normalized_50, reduced_features_normalized_60]
 
             descriptions = ["  form: " + str(N) + "   Reduced-20",
                             "  form: " + str(N) + "   Reduced-30",
                             "  form: " + str(N) + "   Reduced-40",
-                            "  form: " + str(N) + "   Reduced-50"]
+                            "  form: " + str(N) + "   Reduced-50",
+                            "  form: " + str(N) + "   Reduced-60"]
             descriptions_normalized = ["  form: " + str(N) + "   Normalized   Reduced-20",
                             "  form: " + str(N) + "   Normalized   Reduced-30",
                             "  form: " + str(N) + "   Normalized   Reduced-40",
-                            "  form: " + str(N) + "   Normalized   Reduced-50"]
+                            "  form: " + str(N) + "   Normalized   Reduced-50",
+                            "  form: " + str(N) + "   Normalized   Reduced-60"]
 
             # Run predictions on data and normalized data for every model
             for model, name in zip(models, names_of_models):
@@ -204,13 +215,8 @@ if __name__== "__main__":
     for key in results_dict.keys():
         results_dict[key] /= iterations
 
-    print("\n")
-    # Print the accuraccy of each model in descending order
+    w = csv.writer(open("eval/res.csv", "w"))
+    # Write the accuracy of each model in descending order
     for model in sorted(results_dict, key=results_dict.get, reverse = True):
-        print(model + "   " + str(results_dict[model]))
-    print("\n")
-
-    # Write the eval results
-    w = csv.writer(open("eval/results.csv", "w"))
-    for key, val in results_dict.items():
-        w.writerow([key, val])
+        #print(model + "   " + str(results_dict[model]))
+        w.writerow([model, results_dict[model]])
