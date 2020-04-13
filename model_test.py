@@ -59,7 +59,7 @@ if __name__== "__main__":
         iterations = int(sys.argv[1])
     # If not specified, just do 5
     else:
-        iterations = 5
+        iterations = 1
 
 
     for N in [3,5,8]:
@@ -91,9 +91,18 @@ if __name__== "__main__":
             print(i)
 
             # Split dataset in training and test datasets
-            X_train, X_test = train_test_split(data, test_size=0.15, random_state=int(time.time()))
+            #X_train, X_test = train_test_split(data, test_size=0.15, random_state=int(time.time()))
+
+            # Or alternatively try to guess the results of the end of the season
+            X_train = data[:320].append(data[370:690]).append(data[740:1060]).append(data[1110:1430])
+            X_test = data[320:370].append(data[690:740]).append(data[1060:1110]).append(data[1430:1480])
+
             # Split normalized dataset in training and test datasets
-            Y_train, Y_test = train_test_split(data_normalized, test_size=0.15, random_state=int(time.time()))
+            #Y_train, Y_test = train_test_split(data_normalized, test_size=0.15, random_state=int(time.time()))
+
+            # Rest of the season testing
+            Y_train = data_normalized[:320].append(data_normalized[370:690]).append(data_normalized[740:1060]).append(data_normalized[1110:1430])
+            Y_test = data_normalized[320:370].append(data_normalized[690:740]).append(data_normalized[1060:1110]).append(data_normalized[1430:1480])
 
             # Split data into features and labels
             train_data = X_train[col_names_features]
@@ -215,7 +224,7 @@ if __name__== "__main__":
     for key in results_dict.keys():
         results_dict[key] /= iterations
 
-    w = csv.writer(open("eval/res.csv", "w"))
+    w = csv.writer(open("eval/end_of_season_results.csv", "w"))
     # Write the accuracy of each model in descending order
     for model in sorted(results_dict, key=results_dict.get, reverse = True):
         #print(model + "   " + str(results_dict[model]))
