@@ -115,8 +115,8 @@ if __name__== "__main__":
         }
 
         # Instantiate the grid search model
-        grid_search_rf = GridSearchCV(estimator = forest, param_grid = param_grid, n_jobs = 5)
-        grid_search_ef = GridSearchCV(estimator = extra_forest, param_grid = param_grid, n_jobs = 5)
+        grid_search_rf = GridSearchCV(estimator = forest, param_grid = param_grid, n_jobs = 2)
+        grid_search_ef = GridSearchCV(estimator = extra_forest, param_grid = param_grid, n_jobs = 2)
 
         print("RF Raw " + str(N) + ":")
         grid_search_rf.fit(train_data, train_labels)
