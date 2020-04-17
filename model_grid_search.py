@@ -106,36 +106,39 @@ if __name__== "__main__":
 
         # Create the parameter grid based for GridSearchCV
         param_grid = {
-            'bootstrap': [True],
-            'max_depth': [40, 60, 80, 100, 160],
-            'max_features': [2, 3, 6],
-            'min_samples_leaf': [3, 4, 5, 10, 20],
-            'min_samples_split': [6, 8, 10],
-            'n_estimators': [100, 200, 500, 1000]
+            'max_depth': [40, 60, 100, 160],
+            'max_features': [2, 6, 10],
+            'min_samples_leaf': [3, 10, 20],
+            'min_samples_split': [6, 10, 16],
+            'n_estimators': [100, 500, 1000]
         }
 
         # Instantiate the grid search model
-        grid_search_rf = GridSearchCV(estimator = forest, param_grid = param_grid, n_jobs = 2)
-        grid_search_ef = GridSearchCV(estimator = extra_forest, param_grid = param_grid, n_jobs = 2)
+        grid_search_rf = GridSearchCV(estimator = forest, param_grid = param_grid, cv = 3, n_jobs = 2)
+        grid_search_ef = GridSearchCV(estimator = extra_forest, param_grid = param_grid, cv = 3, n_jobs = 2)
 
         print("RF Raw " + str(N) + ":")
         grid_search_rf.fit(train_data, train_labels)
         print(grid_search_rf.best_params_)
+        results_dict["params RF Raw " + str(N)] = grid_search_rf.best_params_
         results_dict["RF Raw " + str(N)] = evaluate_grid_model(test_data, test_labels, grid_search_rf.best_estimator_)
 
         print("RF Raw norm " + str(N) + ":")
         grid_search_rf.fit(train_data_norm, train_labels_norm)
         print(grid_search_rf.best_params_)
+        results_dict["RF Raw norm " + str(N)] = grid_search_rf.best_params_
         results_dict["RF Raw norm " + str(N)] = evaluate_grid_model(test_data_norm, test_labels_norm, grid_search_rf.best_estimator_)
 
         print("ExF Raw " + str(N) + ":")
         grid_search_ef.fit(train_data, train_labels)
-        print(grid_search_rf.best_params_)
+        print(grid_search_ef.best_params_)
+        results_dict["ExF Raw " + str(N)] = grid_search_ef.best_params_
         results_dict["ExF Raw " + str(N)] = evaluate_grid_model(test_data, test_labels, grid_search_ef.best_estimator_)
 
         print("ExF Raw norm " + str(N) + ":")
         grid_search_ef.fit(train_data_norm, train_labels_norm)
-        print(grid_search_rf.best_params_)
+        print(grid_search_ef.best_params_)
+        results_dict["ExF Raw norm " + str(N)] = grid_search_ef.best_params_
         results_dict["ExF Raw norm " + str(N)] = evaluate_grid_model(test_data_norm, test_labels_norm, grid_search_ef.best_estimator_)
 
 
@@ -149,21 +152,25 @@ if __name__== "__main__":
             print("RF Raw " + desc + str(N) + " :")
             grid_search_rf.fit(train_data[feats], train_labels)
             print(grid_search_rf.best_params_)
+            results_dict["RF Raw " + desc + str(N)] = grid_search_rf.best_params_
             results_dict["RF Raw " + desc + str(N)] = evaluate_grid_model(test_data[feats], test_labels, grid_search_rf.best_estimator_)
 
             print("RF Raw norm " + desc + str(N) + " :")
             grid_search_rf.fit(train_data_norm[feats_norm], train_labels_norm)
             print(grid_search_rf.best_params_)
+            results_dict["RF Raw norm " + desc + str(N)] = grid_search_rf.best_params_
             results_dict["RF Raw norm " + desc + str(N)] = evaluate_grid_model(test_data_norm[feats_norm], test_labels_norm, grid_search_rf.best_estimator_)
 
             print("ExF Raw " + desc + str(N) + " :")
             grid_search_ef.fit(train_data[feats], train_labels)
-            print(grid_search_rf.best_params_)
+            print(grid_search_ef.best_params_)
+            results_dict["ExF Raw " + desc + str(N)] = grid_search_ef.best_params_
             results_dict["ExF Raw " + desc + str(N)] = evaluate_grid_model(test_data[feats], test_labels, grid_search_ef.best_estimator_)
 
             print("ExF Raw norm " + desc + str(N) + " :")
             grid_search_ef.fit(train_data_norm[feats_norm], train_labels_norm)
-            print(grid_search_rf.best_params_)
+            print(grid_search_ef.best_params_)
+            results_dict["ExF Raw norm " + desc + str(N)] = grid_search_ef.best_params_
             results_dict["ExF Raw norm " + desc + str(N)] = evaluate_grid_model(test_data_norm[feats_norm], test_labels_norm, grid_search_ef.best_estimator_)
 
 
