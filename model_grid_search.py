@@ -185,4 +185,5 @@ if __name__== "__main__":
     with open("eval/grid_results_params.csv", 'w') as outfile:
         writer = csv.writer(outfile)
         for k, v in results_dict_params.items():
-            writer.writerow([k] + v)
+            writer.writerow([k])
+            writer.writerow(v)
