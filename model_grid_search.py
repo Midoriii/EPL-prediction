@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import json
 import time
 import os
 import csv
@@ -108,8 +109,7 @@ if __name__== "__main__":
 
         # Create the parameter grid based for GridSearchCV
         param_grid = {
-            'max_depth': [40, 100, 160, 250],
-            'max_features': [6, 10, 20],
+            'max_features': [6, 10, 20, "auto"],
             'min_samples_leaf': [3, 10, 20, 40],
             'min_samples_split': [6, 10, 16, 40],
             'n_estimators': [100, 500, 1000]
@@ -182,8 +182,5 @@ if __name__== "__main__":
         #print(model + "   " + str(results_dict[model]))
         w.writerow([model, results_dict[model]])
 
-    with open("eval/grid_results_params.csv", 'w') as outfile:
-        writer = csv.writer(outfile)
-        for k, v in results_dict_params.items():
-            writer.writerow([k])
-            writer.writerow(v)
+    with open('eval/grid_results_params.txt', 'w') as f:
+        print(results_dict_params, file=f)
