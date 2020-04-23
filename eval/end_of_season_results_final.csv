@@ -1,0 +1,900 @@
+Extreme Forest-200  form: 5   Reduced-30,0.57
+AdaBoost-100  form: 3   Reduced-20,0.55
+Extreme Forest-200  form: 5   Reduced-50,0.55
+Extreme Forest-200  form: 8   Reduced-30,0.55
+Random Forest-200  form: 5   Reduced-30,0.545
+Extreme Forest-100  form: 5   Reduced-30,0.545
+Extreme Forest-200  form: 5   Reduced-40,0.545
+Extreme Forest-1000  form: 5   Reduced-30,0.545
+Random Forest-600  form: 8   Reduced-30,0.545
+Random Forest-1000  form: 8,0.545
+Extreme Forest-400  form: 8   Reduced-30,0.545
+Extreme Forest-1000  form: 8   Reduced-40,0.545
+Extreme Forest-1000  form: 8   Reduced-50,0.545
+Extreme Forest-200  form: 3   Reduced-40,0.54
+Random Forest-600  form: 5   Reduced-30,0.54
+Extreme Forest-100  form: 5   Normalized   Reduced-40,0.54
+Extreme Forest-600  form: 5   Reduced-30,0.54
+Random Forest-200  form: 8   Reduced-20,0.54
+Random Forest-400  form: 8,0.54
+Extreme Forest-600  form: 8   Reduced-30,0.54
+Extreme Forest-100  form: 3   Reduced-30,0.535
+Extreme Forest-200  form: 3   Reduced-30,0.535
+Random Forest-100  form: 5,0.535
+Random Forest-200  form: 5,0.535
+Random Forest-400  form: 5   Normalized,0.535
+Random Forest-400  form: 5   Normalized   Reduced-30,0.535
+Random Forest-400  form: 5   Reduced-60,0.535
+Extreme Forest-100  form: 5   Reduced-50,0.535
+Extreme Forest-400  form: 5   Reduced-30,0.535
+Extreme Forest-1000  form: 5   Reduced-20,0.535
+Extreme Forest-1000  form: 5   Normalized   Reduced-20,0.535
+Random Forest-50  form: 8   Reduced-60,0.535
+Random Forest-200  form: 8   Reduced-30,0.535
+Random Forest-1000  form: 8   Reduced-40,0.535
+Extreme Forest-100  form: 8   Reduced-40,0.535
+Extreme Forest-400  form: 8   Reduced-60,0.535
+Extreme Forest-600  form: 8   Reduced-40,0.535
+Random Forest-200  form: 3   Reduced-60,0.53
+Extreme Forest-1000  form: 3   Reduced-20,0.53
+Extreme Forest-1000  form: 3   Reduced-60,0.53
+KNN-25  form: 5   Reduced-40,0.53
+KNN-25  form: 5   Reduced-50,0.53
+KNN-25  form: 5   Reduced-60,0.53
+Random Forest-50  form: 5   Normalized,0.53
+Random Forest-50  form: 5   Reduced-30,0.53
+Random Forest-600  form: 5,0.53
+Random Forest-600  form: 5   Normalized   Reduced-20,0.53
+Extreme Forest-100  form: 5   Reduced-20,0.53
+Extreme Forest-100  form: 5   Reduced-40,0.53
+Extreme Forest-200  form: 5,0.53
+Extreme Forest-400  form: 5   Reduced-60,0.53
+Random Forest-400  form: 8   Reduced-50,0.53
+Random Forest-1000  form: 8   Reduced-50,0.53
+Random Forest-1000  form: 8   Reduced-60,0.53
+AdaBoost-200  form: 8   Reduced-20,0.53
+Extreme Forest-100  form: 8   Reduced-30,0.53
+Extreme Forest-400  form: 8   Reduced-50,0.53
+Extreme Forest-1000  form: 8   Normalized   Reduced-20,0.53
+AdaBoost-200  form: 3   Normalized   Reduced-50,0.525
+Extreme Forest-1000  form: 3,0.525
+Extreme Forest-1000  form: 3   Reduced-40,0.525
+KNN-25  form: 5   Reduced-20,0.525
+KNN-25  form: 5   Reduced-30,0.525
+Random Forest-50  form: 5   Reduced-60,0.525
+Random Forest-200  form: 5   Normalized   Reduced-30,0.525
+Random Forest-600  form: 5   Normalized   Reduced-50,0.525
+Random Forest-1000  form: 5   Reduced-30,0.525
+AdaBoost-100  form: 5   Reduced-30,0.525
+Extreme Forest-100  form: 5   Reduced-60,0.525
+Extreme Forest-200  form: 5   Normalized   Reduced-20,0.525
+Extreme Forest-200  form: 5   Reduced-60,0.525
+Extreme Forest-400  form: 5   Reduced-50,0.525
+Extreme Forest-1000  form: 5   Reduced-40,0.525
+Extreme Forest-1000  form: 5   Reduced-50,0.525
+Gaussian NB  form: 8   Normalized   Reduced-50,0.525
+Random Forest-50  form: 8   Reduced-50,0.525
+Random Forest-100  form: 8   Normalized   Reduced-20,0.525
+Random Forest-100  form: 8   Reduced-30,0.525
+Random Forest-200  form: 8,0.525
+Random Forest-400  form: 8   Normalized   Reduced-30,0.525
+Random Forest-600  form: 8,0.525
+Random Forest-600  form: 8   Reduced-20,0.525
+Random Forest-600  form: 8   Reduced-40,0.525
+Random Forest-600  form: 8   Reduced-60,0.525
+AdaBoost-50  form: 8   Reduced-30,0.525
+Extreme Forest-100  form: 8   Normalized   Reduced-30,0.525
+Extreme Forest-200  form: 8   Reduced-50,0.525
+Extreme Forest-200  form: 8   Reduced-60,0.525
+Extreme Forest-600  form: 8,0.525
+Extreme Forest-600  form: 8   Reduced-60,0.525
+Extreme Forest-1000  form: 8,0.525
+Random Forest-50  form: 3   Normalized,0.52
+Random Forest-50  form: 3   Reduced-50,0.52
+Random Forest-100  form: 3   Reduced-50,0.52
+Random Forest-1000  form: 3,0.52
+AdaBoost-50  form: 3   Reduced-20,0.52
+Extreme Forest-100  form: 3,0.52
+Extreme Forest-100  form: 3   Reduced-50,0.52
+Extreme Forest-200  form: 3   Reduced-50,0.52
+Extreme Forest-400  form: 3   Normalized   Reduced-30,0.52
+Extreme Forest-400  form: 3   Reduced-40,0.52
+Extreme Forest-600  form: 3,0.52
+Extreme Forest-600  form: 3   Reduced-20,0.52
+Extreme Forest-600  form: 3   Reduced-40,0.52
+Extreme Forest-600  form: 3   Reduced-50,0.52
+Extreme Forest-1000  form: 3   Reduced-50,0.52
+Gaussian NB  form: 5   Reduced-50,0.52
+KNN-25  form: 5,0.52
+Random Forest-100  form: 5   Reduced-50,0.52
+Random Forest-200  form: 5   Reduced-40,0.52
+Random Forest-400  form: 5   Reduced-20,0.52
+Random Forest-400  form: 5   Reduced-40,0.52
+Random Forest-400  form: 5   Reduced-50,0.52
+Random Forest-600  form: 5   Normalized   Reduced-30,0.52
+Random Forest-1000  form: 5   Normalized   Reduced-20,0.52
+AdaBoost-200  form: 5   Reduced-60,0.52
+Extreme Forest-100  form: 5,0.52
+Extreme Forest-400  form: 5   Reduced-20,0.52
+Extreme Forest-400  form: 5   Normalized   Reduced-20,0.52
+Extreme Forest-400  form: 5   Reduced-40,0.52
+Extreme Forest-600  form: 5   Reduced-40,0.52
+Extreme Forest-1000  form: 5   Reduced-60,0.52
+Random Forest-600  form: 8   Reduced-50,0.52
+Random Forest-1000  form: 8   Reduced-20,0.52
+Random Forest-1000  form: 8   Reduced-30,0.52
+AdaBoost-100  form: 8   Reduced-30,0.52
+AdaBoost-100  form: 8   Reduced-50,0.52
+Extreme Forest-400  form: 8,0.52
+Extreme Forest-1000  form: 8   Reduced-30,0.52
+Random Forest-200  form: 3   Reduced-50,0.515
+AdaBoost-200  form: 3   Reduced-20,0.515
+AdaBoost-200  form: 3   Reduced-30,0.515
+Extreme Forest-100  form: 3   Normalized,0.515
+Extreme Forest-200  form: 3,0.515
+Extreme Forest-200  form: 3   Reduced-60,0.515
+Extreme Forest-400  form: 3,0.515
+Extreme Forest-400  form: 3   Reduced-50,0.515
+Gaussian NB  form: 5   Reduced-40,0.515
+Random Forest-50  form: 5   Reduced-40,0.515
+Random Forest-50  form: 5   Normalized   Reduced-40,0.515
+Random Forest-200  form: 5   Reduced-50,0.515
+Random Forest-200  form: 5   Reduced-60,0.515
+Random Forest-600  form: 5   Reduced-20,0.515
+Random Forest-600  form: 5   Reduced-40,0.515
+Random Forest-600  form: 5   Reduced-60,0.515
+Random Forest-1000  form: 5,0.515
+Random Forest-1000  form: 5   Reduced-20,0.515
+Random Forest-1000  form: 5   Reduced-40,0.515
+Random Forest-1000  form: 5   Reduced-60,0.515
+Extreme Forest-400  form: 5,0.515
+Extreme Forest-600  form: 5   Normalized   Reduced-20,0.515
+Extreme Forest-600  form: 5   Normalized   Reduced-30,0.515
+Extreme Forest-600  form: 5   Reduced-50,0.515
+Extreme Forest-600  form: 5   Reduced-60,0.515
+Extreme Forest-1000  form: 5,0.515
+KNN-35  form: 8   Reduced-30,0.515
+Random Forest-50  form: 8   Reduced-20,0.515
+Random Forest-100  form: 8   Reduced-20,0.515
+Random Forest-100  form: 8   Reduced-50,0.515
+Random Forest-100  form: 8   Normalized   Reduced-50,0.515
+Random Forest-200  form: 8   Normalized,0.515
+Random Forest-200  form: 8   Reduced-40,0.515
+Random Forest-1000  form: 8   Normalized   Reduced-30,0.515
+AdaBoost-100  form: 8   Reduced-20,0.515
+Extreme Forest-200  form: 8,0.515
+Extreme Forest-200  form: 8   Reduced-20,0.515
+Extreme Forest-400  form: 8   Reduced-20,0.515
+Extreme Forest-400  form: 8   Normalized   Reduced-20,0.515
+Extreme Forest-400  form: 8   Normalized   Reduced-30,0.515
+Extreme Forest-400  form: 8   Reduced-40,0.515
+Extreme Forest-1000  form: 8   Normalized   Reduced-30,0.515
+Gaussian NB  form: 3   Normalized   Reduced-40,0.51
+Random Forest-50  form: 3   Reduced-30,0.51
+Random Forest-600  form: 3,0.51
+Random Forest-1000  form: 3   Reduced-20,0.51
+AdaBoost-50  form: 3   Reduced-30,0.51
+AdaBoost-100  form: 3   Normalized   Reduced-50,0.51
+AdaBoost-200  form: 3   Normalized   Reduced-40,0.51
+Extreme Forest-100  form: 3   Reduced-20,0.51
+Extreme Forest-100  form: 3   Reduced-40,0.51
+Extreme Forest-100  form: 3   Normalized   Reduced-40,0.51
+Extreme Forest-200  form: 3   Normalized   Reduced-20,0.51
+Extreme Forest-400  form: 3   Normalized,0.51
+Extreme Forest-400  form: 3   Reduced-20,0.51
+Extreme Forest-400  form: 3   Reduced-60,0.51
+Extreme Forest-600  form: 3   Normalized   Reduced-40,0.51
+Extreme Forest-600  form: 3   Reduced-60,0.51
+Extreme Forest-1000  form: 3   Normalized,0.51
+Gaussian NB  form: 5   Reduced-20,0.51
+KNN-15  form: 5,0.51
+KNN-15  form: 5   Reduced-50,0.51
+KNN-15  form: 5   Reduced-60,0.51
+Random Forest-100  form: 5   Normalized   Reduced-30,0.51
+Random Forest-100  form: 5   Reduced-40,0.51
+Random Forest-600  form: 5   Normalized,0.51
+Random Forest-1000  form: 5   Normalized,0.51
+AdaBoost-100  form: 5   Reduced-20,0.51
+AdaBoost-200  form: 5   Reduced-20,0.51
+Extreme Forest-100  form: 5   Normalized,0.51
+Extreme Forest-1000  form: 5   Normalized   Reduced-40,0.51
+Gaussian NB  form: 8   Reduced-40,0.51
+Gaussian NB  form: 8   Reduced-60,0.51
+Multinomial NB  form: 8,0.51
+KNN-35  form: 8,0.51
+KNN-35  form: 8   Reduced-20,0.51
+KNN-35  form: 8   Reduced-40,0.51
+KNN-35  form: 8   Reduced-50,0.51
+KNN-35  form: 8   Reduced-60,0.51
+KNN-100  form: 8   Normalized   Reduced-20,0.51
+Random Forest-100  form: 8,0.51
+Random Forest-100  form: 8   Normalized,0.51
+Random Forest-100  form: 8   Reduced-60,0.51
+Random Forest-200  form: 8   Normalized   Reduced-20,0.51
+Random Forest-200  form: 8   Reduced-50,0.51
+Random Forest-200  form: 8   Reduced-60,0.51
+Random Forest-400  form: 8   Reduced-20,0.51
+Random Forest-400  form: 8   Reduced-60,0.51
+Random Forest-600  form: 8   Normalized   Reduced-60,0.51
+AdaBoost-200  form: 8   Reduced-30,0.51
+Extreme Forest-100  form: 8   Normalized,0.51
+Extreme Forest-100  form: 8   Reduced-50,0.51
+Extreme Forest-100  form: 8   Reduced-60,0.51
+Extreme Forest-600  form: 8   Normalized,0.51
+Extreme Forest-600  form: 8   Reduced-20,0.51
+Extreme Forest-600  form: 8   Reduced-50,0.51
+Gaussian NB  form: 3   Normalized   Reduced-20,0.505
+KNN-100  form: 3   Normalized,0.505
+Random Forest-50  form: 3   Reduced-40,0.505
+Random Forest-50  form: 3   Reduced-60,0.505
+Random Forest-400  form: 3   Reduced-60,0.505
+Random Forest-600  form: 3   Reduced-20,0.505
+Random Forest-600  form: 3   Reduced-50,0.505
+Random Forest-600  form: 3   Reduced-60,0.505
+AdaBoost-100  form: 3   Reduced-30,0.505
+Extreme Forest-100  form: 3   Normalized   Reduced-20,0.505
+Extreme Forest-100  form: 3   Normalized   Reduced-50,0.505
+Extreme Forest-600  form: 3   Reduced-30,0.505
+Extreme Forest-600  form: 3   Normalized   Reduced-60,0.505
+Extreme Forest-1000  form: 3   Reduced-30,0.505
+Gaussian NB  form: 5   Reduced-30,0.505
+Multinomial NB  form: 5   Reduced-20,0.505
+Multinomial NB  form: 5   Reduced-40,0.505
+Multinomial NB  form: 5   Reduced-50,0.505
+Multinomial NB  form: 5   Reduced-60,0.505
+KNN-15  form: 5   Reduced-20,0.505
+KNN-15  form: 5   Reduced-30,0.505
+KNN-15  form: 5   Reduced-40,0.505
+Random Forest-50  form: 5   Normalized   Reduced-30,0.505
+Random Forest-100  form: 5   Reduced-20,0.505
+Random Forest-100  form: 5   Reduced-30,0.505
+Random Forest-100  form: 5   Normalized   Reduced-50,0.505
+Random Forest-200  form: 5   Reduced-20,0.505
+Random Forest-400  form: 5   Normalized   Reduced-20,0.505
+Random Forest-400  form: 5   Normalized   Reduced-40,0.505
+Random Forest-400  form: 5   Normalized   Reduced-50,0.505
+Random Forest-1000  form: 5   Normalized   Reduced-30,0.505
+Random Forest-1000  form: 5   Normalized   Reduced-50,0.505
+AdaBoost-50  form: 5,0.505
+Extreme Forest-200  form: 5   Normalized,0.505
+Extreme Forest-400  form: 5   Normalized   Reduced-40,0.505
+Extreme Forest-600  form: 5   Reduced-20,0.505
+Extreme Forest-600  form: 5   Normalized   Reduced-40,0.505
+Extreme Forest-1000  form: 5   Normalized   Reduced-30,0.505
+Extreme Forest-1000  form: 5   Normalized   Reduced-50,0.505
+Gaussian NB  form: 8   Reduced-20,0.505
+Gaussian NB  form: 8   Reduced-30,0.505
+Gaussian NB  form: 8   Normalized   Reduced-40,0.505
+Gaussian NB  form: 8   Reduced-50,0.505
+Multinomial NB  form: 8   Reduced-60,0.505
+KNN-50  form: 8,0.505
+KNN-50  form: 8   Reduced-20,0.505
+KNN-50  form: 8   Reduced-30,0.505
+KNN-50  form: 8   Reduced-40,0.505
+KNN-50  form: 8   Reduced-50,0.505
+KNN-50  form: 8   Reduced-60,0.505
+KNN-70  form: 8,0.505
+KNN-70  form: 8   Reduced-20,0.505
+KNN-70  form: 8   Reduced-30,0.505
+KNN-70  form: 8   Reduced-40,0.505
+KNN-70  form: 8   Reduced-50,0.505
+KNN-70  form: 8   Reduced-60,0.505
+KNN-100  form: 8,0.505
+KNN-100  form: 8   Normalized,0.505
+KNN-100  form: 8   Reduced-20,0.505
+KNN-100  form: 8   Reduced-30,0.505
+KNN-100  form: 8   Normalized   Reduced-30,0.505
+KNN-100  form: 8   Reduced-40,0.505
+KNN-100  form: 8   Normalized   Reduced-40,0.505
+KNN-100  form: 8   Reduced-50,0.505
+KNN-100  form: 8   Normalized   Reduced-50,0.505
+KNN-100  form: 8   Reduced-60,0.505
+KNN-100  form: 8   Normalized   Reduced-60,0.505
+SVM_2  form: 8   Normalized,0.505
+Random Forest-400  form: 8   Normalized,0.505
+Random Forest-400  form: 8   Reduced-30,0.505
+Random Forest-400  form: 8   Reduced-40,0.505
+Random Forest-600  form: 8   Normalized,0.505
+Random Forest-1000  form: 8   Normalized,0.505
+AdaBoost-50  form: 8   Reduced-40,0.505
+AdaBoost-50  form: 8   Reduced-50,0.505
+AdaBoost-200  form: 8   Reduced-50,0.505
+Extreme Forest-100  form: 8   Normalized   Reduced-40,0.505
+Extreme Forest-100  form: 8   Normalized   Reduced-50,0.505
+Extreme Forest-400  form: 8   Normalized   Reduced-50,0.505
+Extreme Forest-600  form: 8   Normalized   Reduced-40,0.505
+Extreme Forest-600  form: 8   Normalized   Reduced-50,0.505
+Extreme Forest-600  form: 8   Normalized   Reduced-60,0.505
+Gaussian NB  form: 3   Reduced-30,0.5
+KNN-25  form: 3,0.5
+KNN-25  form: 3   Reduced-50,0.5
+KNN-25  form: 3   Reduced-60,0.5
+KNN-70  form: 3,0.5
+KNN-70  form: 3   Reduced-20,0.5
+KNN-70  form: 3   Reduced-30,0.5
+KNN-70  form: 3   Reduced-40,0.5
+KNN-70  form: 3   Reduced-50,0.5
+KNN-70  form: 3   Reduced-60,0.5
+KNN-100  form: 3,0.5
+KNN-100  form: 3   Reduced-20,0.5
+KNN-100  form: 3   Normalized   Reduced-20,0.5
+KNN-100  form: 3   Reduced-30,0.5
+KNN-100  form: 3   Normalized   Reduced-30,0.5
+KNN-100  form: 3   Reduced-40,0.5
+KNN-100  form: 3   Normalized   Reduced-40,0.5
+KNN-100  form: 3   Reduced-50,0.5
+KNN-100  form: 3   Reduced-60,0.5
+Random Forest-400  form: 3,0.5
+Random Forest-400  form: 3   Reduced-40,0.5
+Random Forest-1000  form: 3   Reduced-30,0.5
+AdaBoost-200  form: 3   Reduced-50,0.5
+Extreme Forest-100  form: 3   Normalized   Reduced-30,0.5
+Extreme Forest-200  form: 3   Normalized   Reduced-50,0.5
+Extreme Forest-400  form: 3   Reduced-30,0.5
+Gaussian NB  form: 5,0.5
+Gaussian NB  form: 5   Normalized,0.5
+Gaussian NB  form: 5   Normalized   Reduced-30,0.5
+Gaussian NB  form: 5   Normalized   Reduced-40,0.5
+Gaussian NB  form: 5   Normalized   Reduced-50,0.5
+Multinomial NB  form: 5   Reduced-30,0.5
+KNN-100  form: 5   Normalized,0.5
+KNN-100  form: 5   Normalized   Reduced-20,0.5
+KNN-100  form: 5   Normalized   Reduced-30,0.5
+KNN-100  form: 5   Normalized   Reduced-40,0.5
+KNN-100  form: 5   Normalized   Reduced-50,0.5
+KNN-100  form: 5   Normalized   Reduced-60,0.5
+Random Forest-50  form: 5   Reduced-50,0.5
+Random Forest-100  form: 5   Normalized,0.5
+Random Forest-100  form: 5   Reduced-60,0.5
+Random Forest-200  form: 5   Normalized,0.5
+Random Forest-400  form: 5,0.5
+Random Forest-600  form: 5   Normalized   Reduced-40,0.5
+Random Forest-600  form: 5   Reduced-50,0.5
+Random Forest-1000  form: 5   Reduced-50,0.5
+AdaBoost-50  form: 5   Reduced-20,0.5
+AdaBoost-50  form: 5   Reduced-30,0.5
+AdaBoost-200  form: 5   Reduced-30,0.5
+Extreme Forest-100  form: 5   Normalized   Reduced-20,0.5
+Extreme Forest-100  form: 5   Normalized   Reduced-30,0.5
+Extreme Forest-200  form: 5   Normalized   Reduced-40,0.5
+Extreme Forest-200  form: 5   Normalized   Reduced-60,0.5
+Extreme Forest-400  form: 5   Normalized   Reduced-50,0.5
+Extreme Forest-600  form: 5,0.5
+Extreme Forest-600  form: 5   Normalized,0.5
+Multinomial NB  form: 8   Reduced-20,0.5
+Multinomial NB  form: 8   Reduced-30,0.5
+Multinomial NB  form: 8   Reduced-40,0.5
+Multinomial NB  form: 8   Reduced-50,0.5
+KNN-120  form: 8   Reduced-20,0.5
+KNN-120  form: 8   Reduced-30,0.5
+KNN-120  form: 8   Reduced-40,0.5
+KNN-120  form: 8   Reduced-50,0.5
+KNN-120  form: 8   Reduced-60,0.5
+Random Forest-200  form: 8   Normalized   Reduced-60,0.5
+Random Forest-400  form: 8   Normalized   Reduced-20,0.5
+Extreme Forest-100  form: 8,0.5
+Extreme Forest-100  form: 8   Reduced-20,0.5
+Extreme Forest-200  form: 8   Normalized   Reduced-20,0.5
+Extreme Forest-200  form: 8   Normalized   Reduced-30,0.5
+Extreme Forest-200  form: 8   Normalized   Reduced-50,0.5
+Extreme Forest-200  form: 8   Normalized   Reduced-60,0.5
+Extreme Forest-400  form: 8   Normalized,0.5
+Extreme Forest-400  form: 8   Normalized   Reduced-40,0.5
+Extreme Forest-600  form: 8   Normalized   Reduced-30,0.5
+Extreme Forest-1000  form: 8   Normalized,0.5
+Extreme Forest-1000  form: 8   Reduced-20,0.5
+Extreme Forest-1000  form: 8   Normalized   Reduced-50,0.5
+Extreme Forest-1000  form: 8   Reduced-60,0.5
+Gaussian NB  form: 3   Normalized,0.495
+Gaussian NB  form: 3   Normalized   Reduced-50,0.495
+KNN-25  form: 3   Reduced-20,0.495
+KNN-25  form: 3   Reduced-30,0.495
+KNN-25  form: 3   Reduced-40,0.495
+KNN-50  form: 3,0.495
+KNN-50  form: 3   Reduced-20,0.495
+KNN-50  form: 3   Reduced-30,0.495
+KNN-50  form: 3   Reduced-40,0.495
+KNN-50  form: 3   Reduced-50,0.495
+KNN-50  form: 3   Reduced-60,0.495
+KNN-100  form: 3   Normalized   Reduced-50,0.495
+KNN-100  form: 3   Normalized   Reduced-60,0.495
+KNN-120  form: 3,0.495
+KNN-120  form: 3   Reduced-20,0.495
+KNN-120  form: 3   Normalized   Reduced-20,0.495
+KNN-120  form: 3   Reduced-30,0.495
+KNN-120  form: 3   Reduced-40,0.495
+KNN-120  form: 3   Normalized   Reduced-40,0.495
+KNN-120  form: 3   Reduced-50,0.495
+KNN-120  form: 3   Reduced-60,0.495
+Random Forest-100  form: 3   Normalized   Reduced-60,0.495
+Random Forest-200  form: 3   Reduced-30,0.495
+Random Forest-200  form: 3   Reduced-40,0.495
+Random Forest-400  form: 3   Normalized,0.495
+Random Forest-400  form: 3   Normalized   Reduced-30,0.495
+Random Forest-400  form: 3   Reduced-50,0.495
+Random Forest-1000  form: 3   Normalized   Reduced-30,0.495
+Random Forest-1000  form: 3   Reduced-40,0.495
+Random Forest-1000  form: 3   Reduced-50,0.495
+Random Forest-1000  form: 3   Reduced-60,0.495
+Extreme Forest-200  form: 3   Reduced-20,0.495
+Extreme Forest-200  form: 3   Normalized   Reduced-40,0.495
+Extreme Forest-200  form: 3   Normalized   Reduced-60,0.495
+Extreme Forest-600  form: 3   Normalized,0.495
+Extreme Forest-600  form: 3   Normalized   Reduced-20,0.495
+Extreme Forest-1000  form: 3   Normalized   Reduced-60,0.495
+Gaussian NB  form: 5   Normalized   Reduced-20,0.495
+Multinomial NB  form: 5,0.495
+KNN-35  form: 5,0.495
+KNN-35  form: 5   Reduced-20,0.495
+KNN-35  form: 5   Reduced-30,0.495
+KNN-35  form: 5   Reduced-40,0.495
+KNN-35  form: 5   Reduced-50,0.495
+KNN-70  form: 5,0.495
+KNN-70  form: 5   Reduced-20,0.495
+KNN-70  form: 5   Reduced-30,0.495
+KNN-70  form: 5   Reduced-40,0.495
+KNN-70  form: 5   Reduced-50,0.495
+KNN-70  form: 5   Reduced-60,0.495
+Random Forest-50  form: 5   Normalized   Reduced-20,0.495
+Random Forest-200  form: 5   Normalized   Reduced-40,0.495
+Random Forest-400  form: 5   Reduced-30,0.495
+Random Forest-600  form: 5   Normalized   Reduced-60,0.495
+Random Forest-1000  form: 5   Normalized   Reduced-40,0.495
+Extreme Forest-100  form: 5   Normalized   Reduced-50,0.495
+Extreme Forest-200  form: 5   Reduced-20,0.495
+Extreme Forest-200  form: 5   Normalized   Reduced-30,0.495
+Extreme Forest-200  form: 5   Normalized   Reduced-50,0.495
+Extreme Forest-600  form: 5   Normalized   Reduced-50,0.495
+Extreme Forest-600  form: 5   Normalized   Reduced-60,0.495
+Extreme Forest-1000  form: 5   Normalized,0.495
+Extreme Forest-1000  form: 5   Normalized   Reduced-60,0.495
+Gaussian NB  form: 8,0.495
+Gaussian NB  form: 8   Normalized   Reduced-20,0.495
+Gaussian NB  form: 8   Normalized   Reduced-30,0.495
+Gaussian NB  form: 8   Normalized   Reduced-60,0.495
+KNN-25  form: 8,0.495
+KNN-25  form: 8   Reduced-20,0.495
+KNN-25  form: 8   Reduced-30,0.495
+KNN-25  form: 8   Reduced-40,0.495
+KNN-25  form: 8   Reduced-50,0.495
+KNN-25  form: 8   Reduced-60,0.495
+KNN-120  form: 8,0.495
+KNN-120  form: 8   Normalized   Reduced-20,0.495
+KNN-120  form: 8   Normalized   Reduced-30,0.495
+KNN-120  form: 8   Normalized   Reduced-40,0.495
+KNN-120  form: 8   Normalized   Reduced-50,0.495
+Random Forest-50  form: 8,0.495
+Random Forest-50  form: 8   Normalized,0.495
+Random Forest-100  form: 8   Reduced-40,0.495
+Random Forest-100  form: 8   Normalized   Reduced-60,0.495
+Random Forest-200  form: 8   Normalized   Reduced-50,0.495
+Random Forest-400  form: 8   Normalized   Reduced-60,0.495
+Random Forest-600  form: 8   Normalized   Reduced-20,0.495
+Random Forest-600  form: 8   Normalized   Reduced-50,0.495
+Random Forest-1000  form: 8   Normalized   Reduced-40,0.495
+Random Forest-1000  form: 8   Normalized   Reduced-50,0.495
+Extreme Forest-100  form: 8   Normalized   Reduced-60,0.495
+Extreme Forest-200  form: 8   Normalized,0.495
+Extreme Forest-400  form: 8   Normalized   Reduced-60,0.495
+Gaussian NB  form: 3   Reduced-20,0.49
+Gaussian NB  form: 3   Reduced-50,0.49
+Gaussian NB  form: 3   Normalized   Reduced-60,0.49
+Multinomial NB  form: 3   Normalized   Reduced-60,0.49
+KNN-35  form: 3,0.49
+KNN-35  form: 3   Reduced-20,0.49
+KNN-35  form: 3   Reduced-30,0.49
+KNN-35  form: 3   Normalized   Reduced-30,0.49
+KNN-35  form: 3   Reduced-40,0.49
+KNN-35  form: 3   Reduced-50,0.49
+KNN-35  form: 3   Reduced-60,0.49
+KNN-120  form: 3   Normalized   Reduced-30,0.49
+KNN-120  form: 3   Normalized   Reduced-50,0.49
+KNN-120  form: 3   Normalized   Reduced-60,0.49
+Random Forest-50  form: 3,0.49
+Random Forest-100  form: 3,0.49
+Random Forest-100  form: 3   Reduced-60,0.49
+Random Forest-200  form: 3   Normalized   Reduced-40,0.49
+Random Forest-400  form: 3   Normalized   Reduced-20,0.49
+Random Forest-400  form: 3   Reduced-30,0.49
+Random Forest-600  form: 3   Reduced-40,0.49
+AdaBoost-50  form: 3,0.49
+AdaBoost-200  form: 3   Normalized   Reduced-30,0.49
+Extreme Forest-100  form: 3   Reduced-60,0.49
+Extreme Forest-100  form: 3   Normalized   Reduced-60,0.49
+Extreme Forest-200  form: 3   Normalized   Reduced-30,0.49
+Extreme Forest-600  form: 3   Normalized   Reduced-30,0.49
+Extreme Forest-1000  form: 3   Normalized   Reduced-20,0.49
+Extreme Forest-1000  form: 3   Normalized   Reduced-40,0.49
+Gaussian NB  form: 5   Reduced-60,0.49
+Gaussian NB  form: 5   Normalized   Reduced-60,0.49
+KNN-35  form: 5   Reduced-60,0.49
+KNN-120  form: 5   Normalized   Reduced-20,0.49
+KNN-120  form: 5   Normalized   Reduced-30,0.49
+KNN-120  form: 5   Normalized   Reduced-40,0.49
+KNN-120  form: 5   Normalized   Reduced-50,0.49
+KNN-120  form: 5   Normalized   Reduced-60,0.49
+Random Forest-50  form: 5   Reduced-20,0.49
+Random Forest-100  form: 5   Normalized   Reduced-20,0.49
+Random Forest-200  form: 5   Normalized   Reduced-20,0.49
+Random Forest-200  form: 5   Normalized   Reduced-60,0.49
+Random Forest-400  form: 5   Normalized   Reduced-60,0.49
+AdaBoost-100  form: 5   Normalized,0.49
+AdaBoost-200  form: 5   Reduced-50,0.49
+Extreme Forest-400  form: 5   Normalized   Reduced-30,0.49
+KNN-120  form: 8   Normalized,0.49
+SVM  form: 8   Normalized,0.49
+SVM_2  form: 8   Normalized   Reduced-60,0.49
+Random Forest-50  form: 8   Normalized   Reduced-40,0.49
+Random Forest-100  form: 8   Normalized   Reduced-30,0.49
+Random Forest-400  form: 8   Normalized   Reduced-40,0.49
+Random Forest-1000  form: 8   Normalized   Reduced-20,0.49
+AdaBoost-50  form: 8,0.49
+AdaBoost-50  form: 8   Reduced-20,0.49
+AdaBoost-200  form: 8,0.49
+Extreme Forest-200  form: 8   Reduced-40,0.49
+Extreme Forest-600  form: 8   Normalized   Reduced-20,0.49
+Extreme Forest-1000  form: 8   Normalized   Reduced-40,0.49
+Extreme Forest-1000  form: 8   Normalized   Reduced-60,0.49
+Gaussian NB  form: 3   Normalized   Reduced-30,0.485
+Multinomial NB  form: 3   Normalized   Reduced-20,0.485
+KNN-120  form: 3   Normalized,0.485
+SVM  form: 3   Normalized,0.485
+Random Forest-50  form: 3   Normalized   Reduced-20,0.485
+Random Forest-50  form: 3   Normalized   Reduced-60,0.485
+Random Forest-100  form: 3   Normalized   Reduced-30,0.485
+Random Forest-200  form: 3,0.485
+Random Forest-400  form: 3   Normalized   Reduced-40,0.485
+Random Forest-600  form: 3   Normalized,0.485
+Random Forest-600  form: 3   Normalized   Reduced-20,0.485
+Random Forest-1000  form: 3   Normalized   Reduced-50,0.485
+AdaBoost-200  form: 3   Reduced-60,0.485
+Extreme Forest-200  form: 3   Normalized,0.485
+Extreme Forest-400  form: 3   Normalized   Reduced-20,0.485
+Multinomial NB  form: 5   Normalized   Reduced-50,0.485
+KNN-35  form: 5   Normalized   Reduced-20,0.485
+KNN-50  form: 5,0.485
+KNN-50  form: 5   Reduced-20,0.485
+KNN-50  form: 5   Reduced-30,0.485
+KNN-50  form: 5   Reduced-40,0.485
+KNN-50  form: 5   Reduced-50,0.485
+KNN-50  form: 5   Reduced-60,0.485
+KNN-100  form: 5,0.485
+KNN-100  form: 5   Reduced-20,0.485
+KNN-100  form: 5   Reduced-30,0.485
+KNN-100  form: 5   Reduced-40,0.485
+KNN-100  form: 5   Reduced-50,0.485
+KNN-100  form: 5   Reduced-60,0.485
+KNN-120  form: 5,0.485
+KNN-120  form: 5   Normalized,0.485
+KNN-120  form: 5   Reduced-20,0.485
+KNN-120  form: 5   Reduced-30,0.485
+KNN-120  form: 5   Reduced-40,0.485
+KNN-120  form: 5   Reduced-50,0.485
+KNN-120  form: 5   Reduced-60,0.485
+SVM  form: 5   Normalized,0.485
+Random Forest-100  form: 5   Normalized   Reduced-40,0.485
+Random Forest-100  form: 5   Normalized   Reduced-60,0.485
+Random Forest-1000  form: 5   Normalized   Reduced-60,0.485
+AdaBoost-50  form: 5   Normalized,0.485
+Extreme Forest-100  form: 5   Normalized   Reduced-60,0.485
+Extreme Forest-400  form: 5   Normalized   Reduced-60,0.485
+Gaussian NB  form: 8   Normalized,0.485
+Multinomial NB  form: 8   Normalized   Reduced-20,0.485
+Multinomial NB  form: 8   Normalized   Reduced-30,0.485
+KNN-15  form: 8   Normalized   Reduced-30,0.485
+KNN-120  form: 8   Normalized   Reduced-60,0.485
+Random Forest-50  form: 8   Normalized   Reduced-20,0.485
+Random Forest-400  form: 8   Normalized   Reduced-50,0.485
+AdaBoost-50  form: 8   Reduced-60,0.485
+AdaBoost-100  form: 8   Reduced-40,0.485
+Extreme Forest-200  form: 8   Normalized   Reduced-40,0.485
+Gaussian NB  form: 3   Reduced-40,0.48
+Gaussian NB  form: 3   Reduced-60,0.48
+Multinomial NB  form: 3   Normalized   Reduced-30,0.48
+Multinomial NB  form: 3   Normalized   Reduced-50,0.48
+KNN-35  form: 3   Normalized   Reduced-20,0.48
+KNN-35  form: 3   Normalized   Reduced-40,0.48
+KNN-50  form: 3   Normalized   Reduced-30,0.48
+KNN-70  form: 3   Normalized,0.48
+KNN-70  form: 3   Normalized   Reduced-20,0.48
+KNN-70  form: 3   Normalized   Reduced-30,0.48
+Random Forest-100  form: 3   Normalized,0.48
+Random Forest-200  form: 3   Normalized   Reduced-30,0.48
+Random Forest-400  form: 3   Normalized   Reduced-60,0.48
+Random Forest-600  form: 3   Reduced-30,0.48
+Random Forest-600  form: 3   Normalized   Reduced-30,0.48
+Random Forest-600  form: 3   Normalized   Reduced-60,0.48
+Random Forest-1000  form: 3   Normalized   Reduced-20,0.48
+Random Forest-1000  form: 3   Normalized   Reduced-40,0.48
+AdaBoost-50  form: 3   Normalized,0.48
+AdaBoost-50  form: 3   Normalized   Reduced-50,0.48
+AdaBoost-100  form: 3   Normalized   Reduced-40,0.48
+AdaBoost-100  form: 3   Reduced-50,0.48
+AdaBoost-100  form: 3   Reduced-60,0.48
+AdaBoost-200  form: 3,0.48
+AdaBoost-200  form: 3   Normalized,0.48
+Extreme Forest-400  form: 3   Normalized   Reduced-40,0.48
+Extreme Forest-400  form: 3   Normalized   Reduced-60,0.48
+Extreme Forest-1000  form: 3   Normalized   Reduced-30,0.48
+Extreme Forest-1000  form: 3   Normalized   Reduced-50,0.48
+Multinomial NB  form: 5   Normalized   Reduced-20,0.48
+Multinomial NB  form: 5   Normalized   Reduced-30,0.48
+Multinomial NB  form: 5   Normalized   Reduced-40,0.48
+KNN-35  form: 5   Normalized   Reduced-30,0.48
+KNN-35  form: 5   Normalized   Reduced-40,0.48
+KNN-50  form: 5   Normalized,0.48
+KNN-70  form: 5   Normalized   Reduced-50,0.48
+Random Forest-50  form: 5,0.48
+Random Forest-200  form: 5   Normalized   Reduced-50,0.48
+AdaBoost-100  form: 5   Reduced-50,0.48
+Extreme Forest-400  form: 5   Normalized,0.48
+Multinomial NB  form: 8   Normalized   Reduced-40,0.48
+Multinomial NB  form: 8   Normalized   Reduced-50,0.48
+Multinomial NB  form: 8   Normalized   Reduced-60,0.48
+KNN-15  form: 8   Normalized   Reduced-50,0.48
+KNN-35  form: 8   Normalized   Reduced-20,0.48
+KNN-35  form: 8   Normalized   Reduced-30,0.48
+KNN-35  form: 8   Normalized   Reduced-40,0.48
+KNN-35  form: 8   Normalized   Reduced-50,0.48
+KNN-35  form: 8   Normalized   Reduced-60,0.48
+KNN-70  form: 8   Normalized,0.48
+KNN-70  form: 8   Normalized   Reduced-40,0.48
+KNN-70  form: 8   Normalized   Reduced-50,0.48
+SVM  form: 8   Normalized   Reduced-60,0.48
+SVM_2  form: 8   Normalized   Reduced-30,0.48
+Random Forest-100  form: 8   Normalized   Reduced-40,0.48
+Random Forest-200  form: 8   Normalized   Reduced-30,0.48
+Random Forest-600  form: 8   Normalized   Reduced-40,0.48
+AdaBoost-200  form: 8   Reduced-40,0.48
+Extreme Forest-100  form: 8   Normalized   Reduced-20,0.48
+Multinomial NB  form: 3   Normalized   Reduced-40,0.475
+KNN-15  form: 3   Reduced-20,0.475
+KNN-15  form: 3   Reduced-30,0.475
+KNN-15  form: 3   Reduced-40,0.475
+KNN-15  form: 3   Reduced-50,0.475
+KNN-15  form: 3   Reduced-60,0.475
+KNN-35  form: 3   Normalized   Reduced-50,0.475
+KNN-50  form: 3   Normalized,0.475
+KNN-50  form: 3   Normalized   Reduced-20,0.475
+KNN-50  form: 3   Normalized   Reduced-40,0.475
+KNN-70  form: 3   Normalized   Reduced-40,0.475
+KNN-70  form: 3   Normalized   Reduced-50,0.475
+KNN-70  form: 3   Normalized   Reduced-60,0.475
+SVM  form: 3,0.475
+SVM  form: 3   Reduced-20,0.475
+SVM  form: 3   Reduced-30,0.475
+SVM  form: 3   Reduced-40,0.475
+SVM  form: 3   Reduced-50,0.475
+SVM  form: 3   Reduced-60,0.475
+SVM_2  form: 3,0.475
+SVM_2  form: 3   Reduced-20,0.475
+SVM_2  form: 3   Reduced-30,0.475
+SVM_2  form: 3   Reduced-40,0.475
+SVM_2  form: 3   Reduced-50,0.475
+SVM_2  form: 3   Reduced-60,0.475
+Random Forest-100  form: 3   Reduced-30,0.475
+Random Forest-200  form: 3   Reduced-20,0.475
+Random Forest-400  form: 3   Normalized   Reduced-50,0.475
+Random Forest-1000  form: 3   Normalized,0.475
+AdaBoost-50  form: 3   Reduced-50,0.475
+AdaBoost-200  form: 3   Reduced-40,0.475
+Extreme Forest-400  form: 3   Normalized   Reduced-50,0.475
+Multinomial NB  form: 5   Normalized   Reduced-60,0.475
+KNN-15  form: 5   Normalized,0.475
+KNN-15  form: 5   Normalized   Reduced-40,0.475
+KNN-35  form: 5   Normalized   Reduced-50,0.475
+KNN-35  form: 5   Normalized   Reduced-60,0.475
+KNN-50  form: 5   Normalized   Reduced-50,0.475
+KNN-70  form: 5   Normalized,0.475
+KNN-70  form: 5   Normalized   Reduced-20,0.475
+KNN-70  form: 5   Normalized   Reduced-30,0.475
+KNN-70  form: 5   Normalized   Reduced-40,0.475
+KNN-70  form: 5   Normalized   Reduced-60,0.475
+SVM  form: 5,0.475
+SVM  form: 5   Reduced-20,0.475
+SVM  form: 5   Reduced-30,0.475
+SVM  form: 5   Reduced-40,0.475
+SVM  form: 5   Reduced-50,0.475
+SVM  form: 5   Reduced-60,0.475
+SVM_2  form: 5,0.475
+SVM_2  form: 5   Normalized,0.475
+SVM_2  form: 5   Reduced-20,0.475
+SVM_2  form: 5   Reduced-30,0.475
+SVM_2  form: 5   Reduced-40,0.475
+SVM_2  form: 5   Reduced-50,0.475
+SVM_2  form: 5   Reduced-60,0.475
+Random Forest-50  form: 5   Normalized   Reduced-50,0.475
+AdaBoost-50  form: 5   Reduced-50,0.475
+KNN-15  form: 8,0.475
+KNN-15  form: 8   Reduced-40,0.475
+KNN-15  form: 8   Normalized   Reduced-40,0.475
+KNN-15  form: 8   Reduced-50,0.475
+KNN-15  form: 8   Reduced-60,0.475
+KNN-50  form: 8   Normalized,0.475
+KNN-50  form: 8   Normalized   Reduced-40,0.475
+KNN-50  form: 8   Normalized   Reduced-50,0.475
+KNN-50  form: 8   Normalized   Reduced-60,0.475
+KNN-70  form: 8   Normalized   Reduced-20,0.475
+KNN-70  form: 8   Normalized   Reduced-30,0.475
+KNN-70  form: 8   Normalized   Reduced-60,0.475
+SVM  form: 8,0.475
+SVM  form: 8   Reduced-20,0.475
+SVM  form: 8   Reduced-30,0.475
+SVM  form: 8   Reduced-40,0.475
+SVM  form: 8   Reduced-50,0.475
+SVM  form: 8   Reduced-60,0.475
+SVM_2  form: 8,0.475
+SVM_2  form: 8   Reduced-20,0.475
+SVM_2  form: 8   Reduced-30,0.475
+SVM_2  form: 8   Reduced-40,0.475
+SVM_2  form: 8   Reduced-50,0.475
+SVM_2  form: 8   Reduced-60,0.475
+Random Forest-50  form: 8   Reduced-30,0.475
+Random Forest-50  form: 8   Normalized   Reduced-30,0.475
+Random Forest-50  form: 8   Normalized   Reduced-50,0.475
+Random Forest-1000  form: 8   Normalized   Reduced-60,0.475
+AdaBoost-50  form: 8   Normalized   Reduced-50,0.475
+AdaBoost-100  form: 8,0.475
+AdaBoost-100  form: 8   Reduced-60,0.475
+Multinomial NB  form: 3   Reduced-30,0.47
+Multinomial NB  form: 3   Reduced-50,0.47
+Multinomial NB  form: 3   Reduced-60,0.47
+KNN-15  form: 3,0.47
+KNN-15  form: 3   Normalized   Reduced-60,0.47
+KNN-50  form: 3   Normalized   Reduced-50,0.47
+KNN-50  form: 3   Normalized   Reduced-60,0.47
+SVM  form: 3   Normalized   Reduced-20,0.47
+Random Forest-50  form: 3   Normalized   Reduced-50,0.47
+Random Forest-100  form: 3   Normalized   Reduced-20,0.47
+Random Forest-100  form: 3   Reduced-40,0.47
+Random Forest-100  form: 3   Normalized   Reduced-40,0.47
+Random Forest-200  form: 3   Normalized   Reduced-20,0.47
+Random Forest-200  form: 3   Normalized   Reduced-50,0.47
+Random Forest-600  form: 3   Normalized   Reduced-40,0.47
+Random Forest-600  form: 3   Normalized   Reduced-50,0.47
+AdaBoost-100  form: 3   Reduced-40,0.47
+Extreme Forest-600  form: 3   Normalized   Reduced-50,0.47
+KNN-50  form: 5   Normalized   Reduced-20,0.47
+KNN-50  form: 5   Normalized   Reduced-40,0.47
+KNN-50  form: 5   Normalized   Reduced-60,0.47
+Random Forest-50  form: 5   Normalized   Reduced-60,0.47
+AdaBoost-50  form: 5   Reduced-60,0.47
+KNN-15  form: 8   Reduced-20,0.47
+KNN-15  form: 8   Reduced-30,0.47
+KNN-15  form: 8   Normalized   Reduced-60,0.47
+KNN-50  form: 8   Normalized   Reduced-20,0.47
+KNN-50  form: 8   Normalized   Reduced-30,0.47
+SVM  form: 8   Normalized   Reduced-30,0.47
+SVM  form: 8   Normalized   Reduced-50,0.47
+Random Forest-200  form: 8   Normalized   Reduced-40,0.47
+Random Forest-600  form: 8   Normalized   Reduced-30,0.47
+AdaBoost-100  form: 8   Normalized,0.47
+Multinomial NB  form: 3,0.465
+Multinomial NB  form: 3   Reduced-20,0.465
+Multinomial NB  form: 3   Reduced-40,0.465
+KNN-15  form: 3   Normalized   Reduced-50,0.465
+KNN-25  form: 3   Normalized   Reduced-20,0.465
+KNN-35  form: 3   Normalized   Reduced-60,0.465
+SVM_2  form: 3   Normalized   Reduced-30,0.465
+Random Forest-50  form: 3   Normalized   Reduced-30,0.465
+Random Forest-200  form: 3   Normalized   Reduced-60,0.465
+KNN-15  form: 5   Normalized   Reduced-30,0.465
+KNN-50  form: 5   Normalized   Reduced-30,0.465
+SVM  form: 5   Normalized   Reduced-30,0.465
+SVM  form: 5   Normalized   Reduced-60,0.465
+SVM_2  form: 5   Normalized   Reduced-30,0.465
+SVM_2  form: 5   Normalized   Reduced-50,0.465
+AdaBoost-50  form: 5   Normalized   Reduced-50,0.465
+AdaBoost-100  form: 5   Reduced-60,0.465
+AdaBoost-200  form: 5   Normalized   Reduced-20,0.465
+KNN-35  form: 8   Normalized,0.465
+SVM  form: 8   Normalized   Reduced-20,0.465
+SVM  form: 8   Normalized   Reduced-40,0.465
+SVM_2  form: 8   Normalized   Reduced-20,0.465
+SVM_2  form: 8   Normalized   Reduced-40,0.465
+SVM_2  form: 8   Normalized   Reduced-50,0.465
+Random Forest-50  form: 8   Reduced-40,0.465
+Gaussian NB  form: 3,0.46
+KNN-15  form: 3   Normalized   Reduced-30,0.46
+KNN-15  form: 3   Normalized   Reduced-40,0.46
+KNN-35  form: 3   Normalized,0.46
+SVM  form: 3   Normalized   Reduced-30,0.46
+SVM  form: 3   Normalized   Reduced-40,0.46
+SVM_2  form: 3   Normalized,0.46
+SVM_2  form: 3   Normalized   Reduced-50,0.46
+Random Forest-50  form: 3   Normalized   Reduced-40,0.46
+Random Forest-100  form: 3   Reduced-20,0.46
+Random Forest-200  form: 3   Normalized,0.46
+Random Forest-400  form: 3   Reduced-20,0.46
+KNN-35  form: 5   Normalized,0.46
+AdaBoost-50  form: 5   Normalized   Reduced-20,0.46
+AdaBoost-100  form: 5   Normalized   Reduced-20,0.46
+AdaBoost-100  form: 5   Reduced-40,0.46
+AdaBoost-200  form: 5,0.46
+AdaBoost-200  form: 5   Normalized   Reduced-40,0.46
+Random Forest-50  form: 8   Normalized   Reduced-60,0.46
+AdaBoost-50  form: 8   Normalized   Reduced-40,0.46
+KNN-15  form: 3   Normalized   Reduced-20,0.455
+SVM  form: 3   Normalized   Reduced-60,0.455
+Random Forest-50  form: 3   Reduced-20,0.455
+Random Forest-100  form: 3   Normalized   Reduced-50,0.455
+AdaBoost-50  form: 3   Normalized   Reduced-60,0.455
+KNN-15  form: 5   Normalized   Reduced-60,0.455
+SVM  form: 5   Normalized   Reduced-20,0.455
+SVM  form: 5   Normalized   Reduced-40,0.455
+SVM  form: 5   Normalized   Reduced-50,0.455
+SVM_2  form: 5   Normalized   Reduced-40,0.455
+AdaBoost-50  form: 5   Normalized   Reduced-40,0.455
+KNN-15  form: 8   Normalized   Reduced-20,0.455
+AdaBoost-200  form: 8   Normalized   Reduced-50,0.455
+KNN-15  form: 3   Normalized,0.45
+KNN-25  form: 3   Normalized   Reduced-30,0.45
+KNN-25  form: 3   Normalized   Reduced-60,0.45
+SVM  form: 3   Normalized   Reduced-50,0.45
+Random Forest-1000  form: 3   Normalized   Reduced-60,0.45
+AdaBoost-50  form: 3   Normalized   Reduced-40,0.45
+AdaBoost-100  form: 3,0.45
+AdaBoost-100  form: 3   Normalized   Reduced-60,0.45
+SVM_2  form: 5   Normalized   Reduced-60,0.45
+AdaBoost-200  form: 5   Normalized   Reduced-30,0.45
+AdaBoost-200  form: 5   Reduced-40,0.45
+KNN-15  form: 8   Normalized,0.45
+AdaBoost-200  form: 8   Normalized,0.45
+AdaBoost-200  form: 8   Reduced-60,0.45
+KNN-25  form: 3   Normalized   Reduced-40,0.445
+KNN-25  form: 3   Normalized   Reduced-50,0.445
+SVM_2  form: 3   Normalized   Reduced-40,0.445
+AdaBoost-50  form: 3   Normalized   Reduced-20,0.445
+AdaBoost-50  form: 3   Normalized   Reduced-30,0.445
+AdaBoost-50  form: 3   Reduced-40,0.445
+AdaBoost-50  form: 3   Reduced-60,0.445
+AdaBoost-100  form: 3   Normalized   Reduced-30,0.445
+AdaBoost-200  form: 3   Normalized   Reduced-60,0.445
+KNN-15  form: 5   Normalized   Reduced-20,0.445
+KNN-15  form: 5   Normalized   Reduced-50,0.445
+KNN-25  form: 5   Normalized   Reduced-20,0.445
+SVM_2  form: 5   Normalized   Reduced-20,0.445
+AdaBoost-50  form: 5   Reduced-40,0.445
+AdaBoost-100  form: 5,0.445
+KNN-25  form: 8   Normalized   Reduced-20,0.445
+AdaBoost-100  form: 8   Normalized   Reduced-50,0.445
+Multinomial NB  form: 3   Normalized,0.44
+KNN-25  form: 3   Normalized,0.44
+SVM_2  form: 3   Normalized   Reduced-60,0.44
+AdaBoost-100  form: 3   Normalized,0.44
+KNN-25  form: 5   Normalized,0.44
+AdaBoost-200  form: 5   Normalized,0.44
+Multinomial NB  form: 8   Normalized,0.44
+AdaBoost-100  form: 8   Normalized   Reduced-30,0.44
+SVM_2  form: 3   Normalized   Reduced-20,0.435
+Multinomial NB  form: 5   Normalized,0.435
+AdaBoost-100  form: 5   Normalized   Reduced-30,0.435
+AdaBoost-100  form: 5   Normalized   Reduced-50,0.435
+KNN-25  form: 8   Normalized,0.435
+AdaBoost-50  form: 8   Normalized   Reduced-20,0.435
+AdaBoost-100  form: 8   Normalized   Reduced-40,0.435
+AdaBoost-100  form: 3   Normalized   Reduced-20,0.43
+AdaBoost-50  form: 5   Normalized   Reduced-30,0.43
+AdaBoost-100  form: 5   Normalized   Reduced-40,0.43
+KNN-25  form: 8   Normalized   Reduced-30,0.43
+AdaBoost-50  form: 8   Normalized,0.43
+AdaBoost-200  form: 8   Normalized   Reduced-30,0.43
+KNN-25  form: 5   Normalized   Reduced-30,0.425
+KNN-25  form: 5   Normalized   Reduced-40,0.425
+KNN-25  form: 5   Normalized   Reduced-50,0.425
+KNN-25  form: 5   Normalized   Reduced-60,0.425
+KNN-25  form: 8   Normalized   Reduced-40,0.425
+KNN-25  form: 8   Normalized   Reduced-50,0.425
+KNN-25  form: 8   Normalized   Reduced-60,0.425
+AdaBoost-200  form: 8   Normalized   Reduced-40,0.42
+AdaBoost-200  form: 5   Normalized   Reduced-50,0.415
+AdaBoost-100  form: 8   Normalized   Reduced-20,0.415
+AdaBoost-200  form: 3   Normalized   Reduced-20,0.41
+AdaBoost-50  form: 8   Normalized   Reduced-60,0.4
+AdaBoost-50  form: 8   Normalized   Reduced-30,0.395
+AdaBoost-200  form: 8   Normalized   Reduced-20,0.395
+AdaBoost-200  form: 8   Normalized   Reduced-60,0.39
+AdaBoost-100  form: 8   Normalized   Reduced-60,0.385
+AdaBoost-100  form: 5   Normalized   Reduced-60,0.37
+AdaBoost-200  form: 5   Normalized   Reduced-60,0.37
+AdaBoost-50  form: 5   Normalized   Reduced-60,0.365

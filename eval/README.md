@@ -9,6 +9,8 @@ This somewhat reflects on the results, as end of the season predictions score a 
 
 It can also be seen that the end of the season predictions favour recent form span over 5 to 8 matches, while randomly selected matches lean towards more recent form of 3 matches.
 
+Their ** final ** variants mean that those were used for the final report.
+
 
 ** grid_results.csv ** contains the best results of differently parameterized forests, which showed to be the best classifiers, through grid search
 
