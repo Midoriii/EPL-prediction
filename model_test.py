@@ -7,6 +7,7 @@ import sys
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import classification_report
 from sklearn.feature_selection import SelectKBest, chi2
 
 from collections import defaultdict
@@ -23,7 +24,7 @@ from sklearn.svm import SVC
 
 # Function to fit desired classifier on given data and store the performance on training set in a
 # dictionary containing results, by returning the acc
-def evaluate_model(X_train, Y_train, X_test, Y_test, model):
+def evaluate_model(X_train, Y_train, X_test, Y_test, model, acc=True):
     # Train classifier
     model.fit(
         X_train,
@@ -33,7 +34,11 @@ def evaluate_model(X_train, Y_train, X_test, Y_test, model):
     y_pred = model.predict(X_test)
 
     # Return the performance/accuracy in %
-    return accuracy_score(Y_test, y_pred)
+    if acc:
+        return accuracy_score(Y_test, y_pred)
+    # Or the whole report
+    else:
+        return classification_report(Y_test, y_pred, zero_division = 1)
 
 
 # Get the column names that are most important according to selectKbest features
@@ -53,6 +58,7 @@ if __name__== "__main__":
 
     # Dictionary to store results corresponding to model name
     results_dict = defaultdict(lambda: 0)
+    results_dict_auc = defaultdict(lambda: 0)
 
     # How many testing iterations
     if len(sys.argv) > 1:
@@ -198,12 +204,22 @@ if __name__== "__main__":
                                                                           test_data,
                                                                           test_labels,
                                                                           model)
+                results_dict_auc[name + "  form: " + str(N)] = evaluate_model(train_data,
+                                                                          train_labels,
+                                                                          test_data,
+                                                                          test_labels,
+                                                                          model, False)
                 # And for normalized data
                 results_dict[name + "  form: " + str(N) + "   Normalized"] += evaluate_model(train_data_norm,
                                                                           train_labels_norm,
                                                                           test_data_norm,
                                                                           test_labels_norm,
                                                                           model)
+                results_dict_auc[name + "  form: " + str(N) + "   Normalized"] = evaluate_model(train_data_norm,
+                                                                          train_labels_norm,
+                                                                          test_data_norm,
+                                                                          test_labels_norm,
+                                                                          model, False)
 
                 # Now do the same for reduced features
                 for feats, feats_n, desc, desc_n in zip(features, features_normalized, descriptions, descriptions_normalized):
@@ -212,20 +228,36 @@ if __name__== "__main__":
                                                                               test_data[feats],
                                                                               test_labels,
                                                                               model)
+                    results_dict_auc[name + desc] = evaluate_model(train_data[feats],
+                                                                              train_labels,
+                                                                              test_data[feats],
+                                                                              test_labels,
+                                                                              model, False)
 
                     results_dict[name + desc_n] += evaluate_model(train_data_norm[feats_n],
                                                                               train_labels_norm,
                                                                               test_data_norm[feats_n],
                                                                               test_labels_norm,
                                                                               model)
+                    results_dict_auc[name + desc_n] = evaluate_model(train_data_norm[feats_n],
+                                                                              train_labels_norm,
+                                                                              test_data_norm[feats_n],
+                                                                              test_labels_norm,
+                                                                              model, False)
 
 
     # Average the results
     for key in results_dict.keys():
         results_dict[key] /= iterations
 
-    w = csv.writer(open("eval/end_of_season_results.csv", "w"))
+    #w = csv.writer(open("eval/end_of_season_results.csv", "w"))
     # Write the accuracy of each model in descending order
     for model in sorted(results_dict, key=results_dict.get, reverse = True):
-        #print(model + "   " + str(results_dict[model]))
-        w.writerow([model, results_dict[model]])
+        print(model + "   " + str(results_dict[model]))
+        #w.writerow([model, results_dict[model]])
+
+    w = csv.writer(open("eval/detailed_results.csv", "w"))
+    # Write the AUC of each model in descending order
+    for model in sorted(results_dict_auc, key=results_dict.get, reverse = True):
+        print(model + "   " + str(results_dict_auc[model]))
+        w.writerow([model, results_dict_auc[model]])
