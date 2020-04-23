@@ -1,0 +1,30 @@
+RF Raw Reduced-405
+{'max_features': 10, 'min_samples_leaf': 40, 'min_samples_split': 10, 'n_estimators': 100}
+ExF Raw 3
+{'max_features': 'auto', 'min_samples_leaf': 3, 'min_samples_split': 16, 'n_estimators': 1000}
+ExF Raw Reduced-303
+{'max_features': 10, 'min_samples_leaf': 3, 'min_samples_split': 40, 'n_estimators': 500}
+ExF Raw Reduced-403
+{'max_features': 6, 'min_samples_leaf': 3, 'min_samples_split': 16, 'n_estimators': 100}
+RF Raw Reduced-205
+{'max_features': 10, 'min_samples_leaf': 40, 'min_samples_split': 10, 'n_estimators': 100}
+ExF Raw norm Reduced-405
+{'max_features': 6, 'min_samples_leaf': 3, 'min_samples_split': 16, 'n_estimators': 100}
+RF Raw Reduced-508
+{'max_features': 10, 'min_samples_leaf': 20, 'min_samples_split': 6, 'n_estimators': 100}
+ExF Raw Reduced-203
+{'max_features': 6, 'min_samples_leaf': 10, 'min_samples_split': 6, 'n_estimators': 500}
+ExF Raw Reduced-503
+{'max_features': 'auto', 'min_samples_leaf': 3, 'min_samples_split': 6, 'n_estimators': 1000}
+ExF Raw norm Reduced-503
+{'max_features': 6, 'min_samples_leaf': 3, 'min_samples_split': 10, 'n_estimators': 500}
+RF Raw 5
+{'max_features': 20, 'min_samples_leaf': 40, 'min_samples_split': 6, 'n_estimators': 500}
+ExF Raw Reduced-205
+{'max_features': 20, 'min_samples_leaf': 40, 'min_samples_split': 10, 'n_estimators': 100}
+ExF Raw Reduced-305
+{'max_features': 20, 'min_samples_leaf': 20, 'min_samples_split': 6, 'n_estimators': 500}
+ExF Raw Reduced-405
+{'max_features': 20, 'min_samples_leaf': 40, 'min_samples_split': 16, 'n_estimators': 100}
+RF Raw Reduced-208
+{'max_features': 10, 'min_samples_leaf': 40, 'min_samples_split': 10, 'n_estimators': 100}

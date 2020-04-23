@@ -16,8 +16,10 @@ Their ** final ** variants mean that those were used for the final report.
 
 ** grid_results_params.csv ** holds the best configuration of forests for each dataset
 
+** grid_results_combined_top_15 ** provides an easy to read overview of the best params for the top 15 scoring models
 
-Turns out that parameters matter very little with the forests. No discernible pattern.
+
+Turns out that parameters matter very little with the forests. There are dependencies like max_features and number_of_estimators (lolw -> low, high -> high), but overall there is no superior combination of params.
 
 
 The 'Normalized' and 'Reduced' descriptions mean that the features used were normalized or their amount reduced using SelectKBest respectively.

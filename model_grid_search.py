@@ -182,5 +182,6 @@ if __name__== "__main__":
         #print(model + "   " + str(results_dict[model]))
         w.writerow([model, results_dict[model]])
 
-    with open('eval/grid_results_params.txt', 'w') as f:
-        print(results_dict_params, file=f)
+    # Currently buggy - it's difficult to read defaultdict back without deleting first few chars
+    #with open('eval/grid_results_params.txt', 'w') as f:
+        #print(results_dict_params, file=f)
