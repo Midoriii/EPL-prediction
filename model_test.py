@@ -138,6 +138,18 @@ if __name__== "__main__":
             reduced_features_60 = get_reduced_columns(60, train_data, train_labels)
             reduced_features_normalized_60 = get_reduced_columns(60, train_data_norm, train_labels_norm)
 
+            print(reduced_features_20)
+            print(reduced_features_30)
+            print(reduced_features_40)
+            print(reduced_features_50)
+            print(reduced_features_60)
+
+            print(reduced_features_normalized_20)
+            print(reduced_features_normalized_30)
+            print(reduced_features_normalized_40)
+            print(reduced_features_normalized_50)
+            print(reduced_features_normalized_60)
+
             #Create models
             gnb = GaussianNB()
             mnb = MultinomialNB()
