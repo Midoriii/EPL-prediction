@@ -63,7 +63,7 @@ if __name__== "__main__":
         model_2.add(LSTM(150, input_shape=(series_length, 59), return_sequences=True, dropout=0.4, recurrent_dropout=0.4))
         model_2.add(LSTM(100, return_sequences=True, dropout=0.4, recurrent_dropout=0.4))
         model_2.add(LSTM(50, return_sequences=True, dropout=0.4, recurrent_dropout=0.4))
-        model_2.add(LSTM(25, dropout=0.4, recurrent_dropout=0.4))
+        model_2.add(LSTM(25, dropout=0.5, recurrent_dropout=0.4))
         model_2.add(Dense(n_outputs, activation='softmax'))
         model_2.compile(optimizer='adam', loss='categorical_crossentropy',metrics=['accuracy'] )
 
@@ -95,6 +95,14 @@ if __name__== "__main__":
         score, acc = model_3.evaluate(data_test, labels_test, batch_size=batch_s)
         scores_3.append(score)
         accs_3.append(acc)
+
+    with open("eval/rnn_results.txt", "w") as f:
+        f.write("Model 1 score: " + str(scores_1) + "\n" +
+              "Model 2 score: " + str(scores_2) + "\n" +
+              "Model 3 score: " + str(scores_3) + "\n")
+        f.write("Model 1 acc: " + str(accs_1) + "\n" +
+              "Model 2 acc: " + str(accs_2) + "\n" +
+              "Model 3 acc: " + str(accs_3))
 
     print("Model 1 score: " + str(scores_1) + "\n" +
           "Model 2 score: " + str(scores_2) + "\n" +

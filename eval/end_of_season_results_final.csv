@@ -1,8 +1,7 @@
-Extreme Forest-200  form: 5   Reduced-30,0.57
-AdaBoost-100  form: 3   Reduced-20,0.55
-Extreme Forest-200  form: 5   Reduced-50,0.55
-Extreme Forest-200  form: 8   Reduced-30,0.55
-Random Forest-200  form: 5   Reduced-30,0.545
+Extreme Forest-200  form: 5   Reduced-30,0.567
+Extreme Forest-200  form: 5   Reduced-50,0.555
+Random Forest-200  form: 5   Reduced-30,0.555
+Extreme Forest-200  form: 8   Reduced-30,0.550
 Extreme Forest-100  form: 5   Reduced-30,0.545
 Extreme Forest-200  form: 5   Reduced-40,0.545
 Extreme Forest-1000  form: 5   Reduced-30,0.545
@@ -82,6 +81,7 @@ Random Forest-600  form: 8,0.525
 Random Forest-600  form: 8   Reduced-20,0.525
 Random Forest-600  form: 8   Reduced-40,0.525
 Random Forest-600  form: 8   Reduced-60,0.525
+AdaBoost-100  form: 3   Reduced-20,0.525
 AdaBoost-50  form: 8   Reduced-30,0.525
 Extreme Forest-100  form: 8   Normalized   Reduced-30,0.525
 Extreme Forest-200  form: 8   Reduced-50,0.525
