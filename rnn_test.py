@@ -28,7 +28,8 @@ if __name__== "__main__":
     accs_2 = []
     accs_3 = []
 
-    for series_length in [3,4,5,8]:
+    # Originally for [3,4,5,8]
+    for series_length in [2,3,4,5,8]:
 
         data = np.load('rnn_data/data_' + str(series_length) + '.npy')
         labels = np.load('rnn_data/labels_' + str(series_length) + '.npy')
@@ -54,22 +55,22 @@ if __name__== "__main__":
 
         # Simple model
         model_1 = Sequential()
-        model_1.add(LSTM(128, input_shape=(series_length, 59), dropout=0.4, recurrent_dropout=0.4))
+        model_1.add(LSTM(32, input_shape=(series_length, 59), dropout=0.6, recurrent_dropout=0.4))
         model_1.add(Dense(n_outputs, activation='softmax'))
         model_1.compile(optimizer='adam', loss='categorical_crossentropy',metrics=['accuracy'] )
 
         # Deeper model
         model_2 = Sequential()
-        model_2.add(LSTM(150, input_shape=(series_length, 59), return_sequences=True, dropout=0.4, recurrent_dropout=0.4))
-        model_2.add(LSTM(100, return_sequences=True, dropout=0.4, recurrent_dropout=0.4))
-        model_2.add(LSTM(50, return_sequences=True, dropout=0.4, recurrent_dropout=0.4))
-        model_2.add(LSTM(25, dropout=0.5, recurrent_dropout=0.4))
+        model_2.add(LSTM(100, input_shape=(series_length, 59), return_sequences=True, dropout=0.6, recurrent_dropout=0.4))
+        model_2.add(LSTM(70, return_sequences=True, dropout=0.6, recurrent_dropout=0.4))
+        model_2.add(LSTM(50, return_sequences=True, dropout=0.6, recurrent_dropout=0.4))
+        model_2.add(LSTM(25, dropout=0.6, recurrent_dropout=0.4))
         model_2.add(Dense(n_outputs, activation='softmax'))
         model_2.compile(optimizer='adam', loss='categorical_crossentropy',metrics=['accuracy'] )
 
         # Bidirectional model
         model_3 = Sequential()
-        model_3.add(Bidirectional(LSTM(128, dropout=0.4, recurrent_dropout=0.4), input_shape=(series_length, 59)))
+        model_3.add(Bidirectional(LSTM(32, dropout=0.6, recurrent_dropout=0.4), input_shape=(series_length, 59)))
         #model.add(Dropout(0.5))
         model_3.add(Dense(n_outputs, activation='softmax'))
         model_3.compile(optimizer='adam', loss='categorical_crossentropy',metrics=['accuracy'] )
