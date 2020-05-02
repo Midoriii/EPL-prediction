@@ -70,11 +70,15 @@ if __name__== "__main__":
     Series_list.drop(columns='match_id', inplace=True)
     Series_list.reset_index(drop=True, inplace=True)
 
+    # A check if team ids do anything
+    Series_list.drop(columns='home_team_id', inplace=True)
+    Series_list.drop(columns='away_team_id', inplace=True)
+
     # Create data and labels as numpy arrays and reshape accordingly
     Y = np.array(labels)
     print(Y.shape)
     X = Series_list.to_numpy()
-    X = X.reshape(int(len(Series_list)/series_length),series_length,59)
+    X = X.reshape(int(len(Series_list)/series_length),series_length,57)
     print(X.shape)
 
     # Save for further usage
