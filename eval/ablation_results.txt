@@ -1,0 +1,11 @@
+All Included: 0.5186
+Without Team IDs: 0.5162
+Without Passes: 0.5126000000000003
+Without Shots: 0.5101
+Without Possession: 0.5159000000000001
+Without Team Ratings: 0.524
+Without New Features: 0.5122000000000001
+Without Shots/Passes/Possession: 0.5026000000000001
+Without Almost Everything: 0.48960000000000014
+Without Almost Everything and IDs: 0.4779999999999999
+Without Players: 0.5095000000000001
