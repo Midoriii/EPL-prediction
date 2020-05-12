@@ -1,3 +1,5 @@
+**I'm and IDIOT that refers to Extra Trees as Extreme Forests ...**
+
 **results.csv** contains the sorted models by their achieved accuracy over 100 training and testing trials on randomly selected data splits (85/15 train/test)
 
 **end_of_season_results.csv** contains the same but the testing set is made of the last 50 matches of each season
